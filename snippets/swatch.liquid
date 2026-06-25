@@ -19,6 +19,8 @@
     assign swatch_focal_point = swatch.image.presentation.focal_point
   elsif swatch.color
     assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+  elsif custom_swatch_value != blank
+    assign swatch_value = custom_swatch_value
   endif
 -%}
 

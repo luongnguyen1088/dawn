@@ -23,14 +23,31 @@
   >
     {%- for option in product.options_with_values -%}
       {%- liquid
+        assign option_name_downcase = option.name | downcase
+        assign is_color = false
+        if option_name_downcase contains 'color' or option_name_downcase contains 'màu' or option_name_downcase contains 'colour'
+          assign is_color = true
+        endif
+
+        assign is_size = false
+        if option_name_downcase contains 'size' or option_name_downcase contains 'kích thước' or option_name_downcase contains 'kich thuoc'
+          assign is_size = true
+        endif
+
         assign swatch_count = option.values | map: 'swatch' | compact | size
         assign picker_type = block.settings.picker_type
 
-        if swatch_count > 0 and block.settings.swatch_shape != 'none'
-          if block.settings.picker_type == 'dropdown'
-            assign picker_type = 'swatch_dropdown'
-          else
-            assign picker_type = 'swatch'
+        if is_color
+          assign picker_type = 'swatch'
+        elsif is_size
+          assign picker_type = 'button'
+        else
+          if swatch_count > 0 and block.settings.swatch_shape != 'none'
+            if block.settings.picker_type == 'dropdown'
+              assign picker_type = 'swatch_dropdown'
+            else
+              assign picker_type = 'swatch'
+            endif
           endif
         endif
       -%}
@@ -42,16 +59,31 @@
               {{- option.selected_value -}}
             </span>
           </legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+          <div class="color-swatches-mobile-wrapper">
+            <div class="color-swatches-container">
+              {% render 'product-variant-options',
+                product: product,
+                option: option,
+                block: block,
+                picker_type: picker_type
+              %}
+            </div>
+          </div>
+          <button type="button" class="color-swatches-toggle-btn hidden">Show More +</button>
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+          <legend class="form__label" style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 0.6rem;">
+            <span>{{ option.name }}</span>
+            {%- if is_size -%}
+              <button type="button" class="sizing-chart__button" aria-haspopup="dialog" onclick="openSizeGuideModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px;">
+                  <path d="M120-120v-170h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v170H120Zm0-290v-430h720v430H120Zm60-60h600v-310H180v310Zm0 0v-310 310Z"/>
+                </svg>
+                Size Guide
+              </button>
+            {%- endif -%}
+          </legend>
           {% render 'product-variant-options',
             product: product,
             option: option,
@@ -99,3 +131,389 @@
     </script>
   </variant-selects>
 {%- endunless -%}
+
+<!-- Sizing Guide Modal -->
+<div id="size-guide-modal" class="size-guide-modal" aria-hidden="true" role="dialog">
+  <div class="size-guide-modal__overlay" onclick="closeSizeGuideModal()"></div>
+  <div class="size-guide-modal__content">
+    <button type="button" class="size-guide-modal__close" onclick="closeSizeGuideModal()" aria-label="Close modal">&times;</button>
+    <div class="size-guide-modal__body">
+      <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 600; text-align: center; color: #111;">Size Guide (Unisex T-Shirt)</h3>
+      <p style="font-size: 1.3rem; color: #4b5563; text-align: center; margin-bottom: 2rem; line-height: 1.4;">Measurements are in inches. Flat lay width represents half the chest circumference.</p>
+      <div class="size-guide-modal__table-wrapper">
+        <table class="size-guide-modal__table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Width (Inches)</th>
+              <th>Length (Inches)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 600;">S</td>
+              <td>18"</td>
+              <td>28"</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">M</td>
+              <td>20"</td>
+              <td>29"</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">L</td>
+              <td>22"</td>
+              <td>30"</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">XL</td>
+              <td>24"</td>
+              <td>31"</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">XXL</td>
+              <td>26"</td>
+              <td>32"</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">3XL</td>
+              <td>28"</td>
+              <td>33"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Color swatches layout & wrapping on mobile */
+.color-swatches-mobile-wrapper {
+  overflow: hidden;
+  max-height: none;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .color-swatches-mobile-wrapper {
+    max-height: 84px; /* Constraint to 2 rows of 36px + gaps */
+  }
+  .color-swatches-mobile-wrapper.expanded {
+    max-height: 500px; /* Allow expansion */
+  }
+}
+
+.color-swatches-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* Custom Swatches Circle styling */
+.product-form__input--swatch .swatch-input__input + .swatch-input__label {
+  margin: 0 !important;
+  padding: 0 !important;
+  --swatch-input--size: 36px !important;
+}
+
+.swatch {
+  border: 1px solid #d1d5db !important;
+  border-radius: 50% !important;
+}
+
+/* Hide native checkmark in Dawn if wanted, or styling checked states */
+.swatch-input__input:checked + .swatch-input__label {
+  outline: 2px solid #000 !important;
+  outline-offset: 2px !important;
+}
+
+/* Size Pills styling and Sold Out states */
+.product-form__input--pill {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+.product-form__input--pill input[type='radio'] + label {
+  margin: 0 !important;
+  padding: 8px 16px !important;
+  min-width: 44px !important;
+  height: 38px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  background-color: #fff !important;
+  border: 1px solid #d1d5db !important;
+  transition: all 0.2s ease !important;
+}
+
+.product-form__input--pill input[type='radio']:checked + label {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+}
+
+/* Sold Out Size Pills (Opacity 40% & Diagonal Slash) */
+.product-form__input--pill input[type='radio'].disabled + label,
+.product-form__input--pill input[type='radio']:disabled + label {
+  opacity: 0.4 !important;
+  text-decoration: none !important;
+  position: relative !important;
+  pointer-events: none !important;
+  background-color: #f9fafb !important;
+  border-color: #e5e7eb !important;
+  color: #9ca3af !important;
+}
+
+.product-form__input--pill input[type='radio'].disabled + label::after,
+.product-form__input--pill input[type='radio']:disabled + label::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top right, transparent calc(50% - 1px), #9ca3af 50%, transparent calc(50% + 1px)) !important;
+  pointer-events: none;
+}
+
+/* Minimalist Size Guide Button */
+.sizing-chart__button {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  color: #4b5563 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  cursor: pointer;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  transition: color 0.2s ease;
+}
+
+.sizing-chart__button:hover {
+  color: #000 !important;
+}
+
+.sizing-chart__button svg {
+  width: 14px !important;
+  height: 14px !important;
+  color: inherit !important;
+}
+
+/* Swatches mobile toggle button */
+.color-swatches-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 6px 0;
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 8px;
+  transition: color 0.2s;
+}
+
+.color-swatches-toggle-btn:hover {
+  color: #000;
+}
+
+.color-swatches-toggle-btn.hidden {
+  display: none !important;
+}
+
+/* Sizing Guide Modal Styles */
+.size-guide-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.size-guide-modal.active {
+  display: flex;
+}
+
+.size-guide-modal__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+}
+
+.size-guide-modal__content {
+  position: relative;
+  background-color: #fff;
+  padding: 3rem 2.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  max-height: 90%;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.size-guide-modal__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 2.4rem;
+  cursor: pointer;
+  color: #9ca3af;
+  line-height: 1;
+  padding: 0.5rem;
+}
+
+.size-guide-modal__close:hover {
+  color: #000;
+}
+
+.size-guide-modal__table-wrapper {
+  overflow-x: auto;
+}
+
+.size-guide-modal__table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 1.4rem;
+}
+
+.size-guide-modal__table th,
+.size-guide-modal__table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.size-guide-modal__table th {
+  font-weight: 600;
+  background-color: #f9fafb;
+}
+
+.size-guide-modal__table tr:hover {
+  background-color: #f9fafb;
+}
+</style>
+
+<script>
+function openSizeGuideModal() {
+  const modal = document.getElementById('size-guide-modal');
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeSizeGuideModal() {
+  const modal = document.getElementById('size-guide-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+(function() {
+  function initSwatchesToggle() {
+    const wrapper = document.querySelector('.color-swatches-mobile-wrapper');
+    const container = document.querySelector('.color-swatches-container');
+    const toggleBtn = document.querySelector('.color-swatches-toggle-btn');
+    
+    if (!wrapper || !container || !toggleBtn) return;
+    
+    // Check if on mobile (screen width < 750px)
+    if (window.innerWidth < 750) {
+      // Temporarily remove constraints to get full natural height
+      const previousMaxHeight = wrapper.style.maxHeight;
+      const previousClassList = wrapper.className;
+      
+      wrapper.classList.remove('expanded');
+      wrapper.style.maxHeight = 'none';
+      
+      const naturalHeight = container.offsetHeight;
+      
+      // Restore states
+      wrapper.className = previousClassList;
+      wrapper.style.maxHeight = '';
+      
+      // If height is greater than 2 rows (around 80px)
+      if (naturalHeight > 80) {
+        toggleBtn.classList.remove('hidden');
+      } else {
+        toggleBtn.classList.add('hidden');
+        wrapper.classList.add('expanded'); // No constraint needed if small
+      }
+    } else {
+      toggleBtn.classList.add('hidden');
+      wrapper.classList.add('expanded');
+    }
+  }
+
+  // Bind click event
+  const toggleBtn = document.querySelector('.color-swatches-toggle-btn');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+      const wrapper = document.querySelector('.color-swatches-mobile-wrapper');
+      if (!wrapper) return;
+      
+      if (wrapper.classList.contains('expanded')) {
+        wrapper.classList.remove('expanded');
+        this.textContent = 'Show More +';
+      } else {
+        wrapper.classList.add('expanded');
+        this.textContent = 'Show Less -';
+      }
+    });
+  }
+
+  // Run on page load and window resize
+  window.addEventListener('resize', initSwatchesToggle);
+  initSwatchesToggle();
+
+  // Watch for changes to the product form (Shopify re-renders variants dynamically)
+  const variantSelects = document.querySelector('variant-selects');
+  if (variantSelects) {
+    const observer = new MutationObserver(function() {
+      initSwatchesToggle();
+    });
+    observer.observe(variantSelects, { childList: true, subtree: true });
+  }
+})();
+</script>
+
