@@ -89,6 +89,24 @@
         >
           <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
             {%- if cart != empty -%}
+              {% comment %} Free Shipping Progress Bar {% endcomment %}
+              {%- assign free_shipping_threshold = 5000 -%}
+              {%- assign cart_total = cart.total_price -%}
+              <div class="free-shipping-container">
+                {%- if cart_total >= free_shipping_threshold -%}
+                  <p class="free-shipping-message">🎉 You qualify for <strong>FREE SHIPPING!</strong></p>
+                  {%- assign pct = 100 -%}
+                {%- else -%}
+                  {%- assign amount_remaining = free_shipping_threshold | minus: cart_total -%}
+                  {%- assign remaining_money = amount_remaining | money -%}
+                  <p class="free-shipping-message">You are only <strong>{{ remaining_money }}</strong> away from <strong>FREE SHIPPING!</strong></p>
+                  {%- assign pct = cart_total | times: 100.0 | divided_by: free_shipping_threshold | round -%}
+                {%- endif -%}
+                <div class="free-shipping-bar-bg">
+                  <div class="free-shipping-bar-fill" style="width: {{ pct }}%;"></div>
+                </div>
+              </div>
+
               <div class="drawer__cart-items-wrapper">
                 <table class="cart-items" role="table">
                   <thead role="rowgroup">

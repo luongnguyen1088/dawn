@@ -3610,3 +3610,79 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/* Custom Free Shipping Progress Bar */
+.free-shipping-container {
+  padding: 1.5rem 2rem;
+  background: rgba(var(--color-foreground), 0.03);
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  margin-bottom: 1.5rem;
+}
+.free-shipping-message {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgb(var(--color-foreground));
+}
+.free-shipping-bar-bg {
+  background: rgba(var(--color-foreground), 0.1);
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.free-shipping-bar-fill {
+  background: #2ecc71; /* A nice, vibrant trust green */
+  height: 100%;
+  border-radius: 4px;
+  transition: width var(--duration-long) ease-in-out;
+}
+
+/* Custom Delivery Estimator */
+.delivery-estimator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba(var(--color-foreground), 0.03);
+  border: 1px dashed rgba(var(--color-foreground), 0.15);
+  border-radius: 4px;
+}
+.delivery-estimator__icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  color: rgb(var(--color-foreground));
+}
+.delivery-estimator__text {
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 1.4;
+  color: rgb(var(--color-foreground));
+}
+
+/* Custom Color Swatches */
+.variant-input-wrapper input[type='radio'] + label.swatch-label {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 0;
+  min-width: unset;
+  text-indent: -9999px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  position: relative;
+  transition: border-color var(--duration-short) ease, transform var(--duration-short) ease;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  background-position: center;
+  background-size: cover;
+}
+.variant-input-wrapper input[type='radio']:checked + label.swatch-label {
+  border: 2px solid rgb(var(--color-foreground));
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px rgb(var(--color-background));
+}
+
