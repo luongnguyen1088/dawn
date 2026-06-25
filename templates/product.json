@@ -63,6 +63,9 @@
             "icon": "washing",
             "content": "<p><strong>Wash</strong>: Machine wash cold, inside-out, gentle cycle with mild detergent and similar colors.</p><p><strong>Dry</strong>: Tumble dry low, or hang-dry for the longest life.</p><p><strong>Iron</strong>: Cool iron inside-out if necessary. Do not iron the printed design directly.</p><p><strong>Avoid</strong>: Do not dry clean or use fabric softeners.</p>"
           }
+        },
+        "faq_tab": {
+          "type": "faq_tab"
         }
       },
       "block_order": [
@@ -76,6 +79,7 @@
         "trust_badges",
         "description",
         "care_instructions",
+        "faq_tab",
         "share"
       ],
       "settings": {

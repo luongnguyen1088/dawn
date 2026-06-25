@@ -210,7 +210,7 @@
                   </p>
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
-                {%- when 'collapsible_tab' -%}
+                {%- when 'collapsible_tab', 'faq_tab' -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
                       <summary>
@@ -816,6 +816,224 @@
       <script type="application/ld+json">
         {{ product | structured_data }}
       </script>
+
+      {%- liquid
+        assign color_option_index = null
+        for option in product.options
+          assign downcased_name = option | downcase
+          if downcased_name contains 'color' or downcased_name contains 'colour' or downcased_name contains 'màu'
+            assign color_option_index = forloop.index0
+            break
+          endif
+        endfor
+      -%}
+
+      <div class="sticky-add-to-cart mobile-only" id="StickyAddToCart-{{ section.id }}">
+        <div class="sticky-add-to-cart__content page-width">
+          <div class="sticky-add-to-cart__info">
+            {%- if product.selected_or_first_available_variant.featured_media != null -%}
+              <img
+                src="{{ product.selected_or_first_available_variant.featured_media | image_url: width: 100 }}"
+                id="StickyImage-{{ section.id }}"
+                class="sticky-add-to-cart__image"
+                alt=""
+                width="50"
+                height="50"
+                loading="lazy"
+              >
+            {%- endif -%}
+            <div class="sticky-add-to-cart__details">
+              <span class="sticky-add-to-cart__title">{{ product.title }}</span>
+              <span class="sticky-add-to-cart__variant" id="StickyVariantText-{{ section.id }}">
+                {%- unless product.has_only_default_variant -%}
+                  {{ product.selected_or_first_available_variant.title }}
+                {%- endunless -%}
+              </span>
+            </div>
+          </div>
+          <div class="sticky-add-to-cart__actions">
+            <div class="sticky-add-to-cart__price" id="StickyPrice-{{ section.id }}">
+              {%- render 'price', product: product, use_variant: true, show_badges: false -%}
+            </div>
+            <button
+              type="button"
+              class="button button--primary sticky-add-to-cart__submit"
+              id="StickySubmit-{{ section.id }}"
+              {% if product.selected_or_first_available_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+              <span>
+                {%- if product.selected_or_first_available_variant.available -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- endif -%}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          const sectionId = '{{ section.id }}';
+          const colorOptionIndex = {{ color_option_index | json }};
+          
+          // 1. Sticky Add to Cart elements
+          const mainButton = document.getElementById(`ProductSubmitButton-${sectionId}`);
+          const stickyBar = document.getElementById(`StickyAddToCart-${sectionId}`);
+          const stickySubmit = document.getElementById(`StickySubmit-${sectionId}`);
+          
+          // Intersection Observer to show/hide sticky bar on mobile
+          if (mainButton && stickyBar) {
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+                  stickyBar.classList.add('is-visible');
+                } else {
+                  stickyBar.classList.remove('is-visible');
+                }
+              });
+            }, {
+              root: null,
+              threshold: 0
+            });
+            observer.observe(mainButton);
+          }
+          
+          // Trigger main button click from sticky button
+          if (stickySubmit && mainButton) {
+            stickySubmit.addEventListener('click', () => {
+              if (!mainButton.hasAttribute('disabled')) {
+                mainButton.click();
+              }
+            });
+          }
+          
+          // 2. Variant Image Filtering logic
+          function filterVariantImages(colorName) {
+            if (colorOptionIndex === null || !colorName) return;
+            
+            const formattedColor = colorName.trim().toLowerCase();
+            
+            // Main slides
+            const slides = document.querySelectorAll(`#Slider-Gallery-${sectionId} [data-media-color]`);
+            // Thumbnails
+            const thumbnails = document.querySelectorAll(`#Slider-Thumbnails-${sectionId} [data-media-color]`);
+            
+            let firstVisibleSlide = null;
+            
+            slides.forEach((slide) => {
+              const mediaColor = slide.getAttribute('data-media-color').trim().toLowerCase();
+              if (mediaColor === '' || mediaColor === formattedColor) {
+                slide.style.display = '';
+                slide.classList.remove('hidden');
+                if (!firstVisibleSlide) {
+                  firstVisibleSlide = slide;
+                }
+              } else {
+                slide.style.display = 'none';
+                slide.classList.add('hidden');
+              }
+            });
+            
+            thumbnails.forEach((thumb) => {
+              const mediaColor = thumb.getAttribute('data-media-color').trim().toLowerCase();
+              if (mediaColor === '' || mediaColor === formattedColor) {
+                thumb.style.display = '';
+                thumb.classList.remove('hidden');
+              } else {
+                thumb.style.display = 'none';
+                thumb.classList.add('hidden');
+              }
+            });
+            
+            window.dispatchEvent(new Event('resize'));
+            
+            // Set active media to first visible image
+            if (firstVisibleSlide) {
+              const mediaGallery = document.getElementById(`MediaGallery-${sectionId}`);
+              if (mediaGallery && typeof mediaGallery.setActiveMedia === 'function') {
+                const mediaId = firstVisibleSlide.getAttribute('data-media-id');
+                if (mediaId) {
+                  mediaGallery.setActiveMedia(mediaId, false);
+                }
+              }
+            }
+          }
+          
+          // Helper to get checked color input from DOM
+          function getSelectedColorFromDOM() {
+            const colorInput = document.querySelector('fieldset[name*="color"] input:checked, fieldset[name*="Color"] input:checked, fieldset[name*="màu"] input:checked, select[name*="color"] option:checked, select[name*="Color"] option:checked, select[name*="màu"] option:checked');
+            return colorInput ? (colorInput.value || colorInput.textContent).trim() : null;
+          }
+          
+          // Initial run
+          if (colorOptionIndex !== null) {
+            const initialColor = getSelectedColorFromDOM();
+            if (initialColor) {
+              filterVariantImages(initialColor);
+            }
+          }
+          
+          // Subscribe to pubsub variantChange events
+          if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+            subscribe(PUB_SUB_EVENTS.variantChange, (event) => {
+              if (event.data.sectionId !== sectionId) return;
+              
+              const variant = event.data.variant;
+              
+              // 1. Sync Sticky bar
+              const stickyImage = document.getElementById(`StickyImage-${sectionId}`);
+              const stickyVariantText = document.getElementById(`StickyVariantText-${sectionId}`);
+              const stickyPrice = document.getElementById(`StickyPrice-${sectionId}`);
+              
+              if (variant) {
+                if (stickyImage && variant.featured_media) {
+                  stickyImage.src = variant.featured_media.preview_image.src + '&width=100';
+                }
+                if (stickyVariantText) {
+                  stickyVariantText.textContent = variant.title;
+                }
+                if (stickyPrice) {
+                  const newPrice = event.data.html.getElementById(`price-${sectionId}`);
+                  if (newPrice) {
+                    stickyPrice.innerHTML = newPrice.innerHTML;
+                  }
+                }
+                if (stickySubmit) {
+                  const mainSubmit = event.data.html.getElementById(`ProductSubmitButton-${sectionId}`);
+                  if (mainSubmit) {
+                    const mainText = mainSubmit.querySelector('span')?.textContent || 'Add to Cart';
+                    stickySubmit.querySelector('span').textContent = mainText;
+                    stickySubmit.disabled = mainSubmit.hasAttribute('disabled');
+                  }
+                }
+                
+                if (colorOptionIndex !== null) {
+                  const selectedColor = variant.options[colorOptionIndex];
+                  if (selectedColor) {
+                    filterVariantImages(selectedColor);
+                  }
+                }
+              } else {
+                if (stickySubmit) {
+                  stickySubmit.disabled = true;
+                  stickySubmit.querySelector('span').textContent = window.variantStrings.unavailable;
+                }
+                
+                if (colorOptionIndex !== null) {
+                  const selectedColor = getSelectedColorFromDOM();
+                  if (selectedColor) {
+                    filterVariantImages(selectedColor);
+                  }
+                }
+              }
+            });
+          }
+        });
+      </script>
     </div>
   </product-component>
 </product-info>
@@ -1281,6 +1499,213 @@
           "type": "richtext",
           "id": "content",
           "label": "t:sections.main-product.blocks.collapsible_tab.settings.content.label"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "t:sections.main-product.blocks.collapsible_tab.settings.page.label"
+        }
+      ]
+    },
+    {
+      "type": "faq_tab",
+      "name": "Product FAQs",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Product FAQs",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__1.label"
+            },
+            {
+              "value": "apple",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__2.label"
+            },
+            {
+              "value": "banana",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__3.label"
+            },
+            {
+              "value": "bottle",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__4.label"
+            },
+            {
+              "value": "box",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__5.label"
+            },
+            {
+              "value": "carrot",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__6.label"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__7.label"
+            },
+            {
+              "value": "check_mark",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__8.label"
+            },
+            {
+              "value": "clipboard",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__9.label"
+            },
+            {
+              "value": "dairy",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__10.label"
+            },
+            {
+              "value": "dairy_free",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__11.label"
+            },
+            {
+              "value": "dryer",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__12.label"
+            },
+            {
+              "value": "eye",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__13.label"
+            },
+            {
+              "value": "fire",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__14.label"
+            },
+            {
+              "value": "gluten_free",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__15.label"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__16.label"
+            },
+            {
+              "value": "iron",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__17.label"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__18.label"
+            },
+            {
+              "value": "leather",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__19.label"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__20.label"
+            },
+            {
+              "value": "lipstick",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__21.label"
+            },
+            {
+              "value": "lock",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__22.label"
+            },
+            {
+              "value": "map_pin",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__23.label"
+            },
+            {
+              "value": "nut_free",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__24.label"
+            },
+            {
+              "value": "pants",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__25.label"
+            },
+            {
+              "value": "paw_print",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__26.label"
+            },
+            {
+              "value": "pepper",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__27.label"
+            },
+            {
+              "value": "perfume",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__28.label"
+            },
+            {
+              "value": "plane",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__29.label"
+            },
+            {
+              "value": "plant",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__30.label"
+            },
+            {
+              "value": "price_tag",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__31.label"
+            },
+            {
+              "value": "question_mark",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__32.label"
+            },
+            {
+              "value": "recycle",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__33.label"
+            },
+            {
+              "value": "return",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__34.label"
+            },
+            {
+              "value": "ruler",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__35.label"
+            },
+            {
+              "value": "serving_dish",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__36.label"
+            },
+            {
+              "value": "shirt",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__37.label"
+            },
+            {
+              "value": "shoe",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__38.label"
+            },
+            {
+              "value": "silhouette",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__39.label"
+            },
+            {
+              "value": "snowflake",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__40.label"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__41.label"
+            },
+            {
+              "value": "stopwatch",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__42.label"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__43.label"
+            },
+            {
+              "value": "washing",
+              "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.options__44.label"
+            }
+          ],
+          "default": "question_mark",
+          "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.label"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "default": "<p><strong>How long does shipping take?</strong><br/>Our products are printed on demand. Production takes 2-4 business days. Standard US shipping takes 3-5 business days.</p><p><strong>Can I modify or cancel my order?</strong><br/>Since each item is customized specifically for you, you can request changes or cancellations within 2 hours of placing your order. After 2 hours, production starts and we cannot make changes.</p><p><strong>What is your return policy?</strong><br/>Because all products are personalized and printed to order, we do not accept returns or exchanges if you order the wrong size or color. However, if your item arrives damaged, defective, or with a printing error, we will send a free replacement.</p>",
+          "label": "Content"
         },
         {
           "type": "page",

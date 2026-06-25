@@ -132,57 +132,127 @@
   </variant-selects>
 {%- endunless -%}
 
+{%- liquid
+  assign product_type = product.type | downcase
+  assign size_guide_type = 't-shirt'
+  
+  if product_type contains 'hoodie' or product_type contains 'áo mũ'
+    assign size_guide_type = 'hoodie'
+  elsif product_type contains 'sweatshirt' or product_type contains 'áo nỉ'
+    assign size_guide_type = 'sweatshirt'
+  elsif product_type contains 'mug' or product_type contains 'ly' or product_type contains 'cốc'
+    assign size_guide_type = 'mug'
+  else
+    for tag in product.tags
+      assign tag_downcase = tag | downcase
+      if tag_downcase contains 'hoodie'
+        assign size_guide_type = 'hoodie'
+        break
+      elsif tag_downcase contains 'sweatshirt'
+        assign size_guide_type = 'sweatshirt'
+        break
+      elsif tag_downcase contains 'mug'
+        assign size_guide_type = 'mug'
+        break
+      elsif tag_downcase contains 't-shirt' or tag_downcase contains 'tshirt' or tag_downcase contains 'shirt'
+        assign size_guide_type = 't-shirt'
+        break
+      endif
+    endfor
+  endif
+-%}
+
 <!-- Sizing Guide Modal -->
 <div id="size-guide-modal" class="size-guide-modal" aria-hidden="true" role="dialog">
   <div class="size-guide-modal__overlay" onclick="closeSizeGuideModal()"></div>
   <div class="size-guide-modal__content">
     <button type="button" class="size-guide-modal__close" onclick="closeSizeGuideModal()" aria-label="Close modal">&times;</button>
     <div class="size-guide-modal__body">
-      <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 600; text-align: center; color: #111;">Size Guide (Unisex T-Shirt)</h3>
-      <p style="font-size: 1.3rem; color: #4b5563; text-align: center; margin-bottom: 2rem; line-height: 1.4;">Measurements are in inches. Flat lay width represents half the chest circumference.</p>
-      <div class="size-guide-modal__table-wrapper">
-        <table class="size-guide-modal__table">
-          <thead>
-            <tr>
-              <th>Size</th>
-              <th>Width (Inches)</th>
-              <th>Length (Inches)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="font-weight: 600;">S</td>
-              <td>18"</td>
-              <td>28"</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600;">M</td>
-              <td>20"</td>
-              <td>29"</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600;">L</td>
-              <td>22"</td>
-              <td>30"</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600;">XL</td>
-              <td>24"</td>
-              <td>31"</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600;">XXL</td>
-              <td>26"</td>
-              <td>32"</td>
-            </tr>
-            <tr>
-              <td style="font-weight: 600;">3XL</td>
-              <td>28"</td>
-              <td>33"</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      {%- if size_guide_type == 'hoodie' -%}
+        <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 600; text-align: center; color: #111;">Size Guide (Unisex Hoodie)</h3>
+        <p style="font-size: 1.3rem; color: #4b5563; text-align: center; margin-bottom: 2rem; line-height: 1.4;">Measurements are in inches. Flat lay width represents half the chest circumference.</p>
+        <div class="size-guide-modal__table-wrapper">
+          <table class="size-guide-modal__table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Width (Inches)</th>
+                <th>Length (Inches)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight: 600;">S</td><td>20"</td><td>27"</td></tr>
+              <tr><td style="font-weight: 600;">M</td><td>22"</td><td>28"</td></tr>
+              <tr><td style="font-weight: 600;">L</td><td>24"</td><td>29"</td></tr>
+              <tr><td style="font-weight: 600;">XL</td><td>26"</td><td>30"</td></tr>
+              <tr><td style="font-weight: 600;">XXL</td><td>28"</td><td>31"</td></tr>
+              <tr><td style="font-weight: 600;">3XL</td><td>30"</td><td>32"</td></tr>
+            </tbody>
+          </table>
+        </div>
+      {%- elsif size_guide_type == 'sweatshirt' -%}
+        <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 600; text-align: center; color: #111;">Size Guide (Unisex Sweatshirt)</h3>
+        <p style="font-size: 1.3rem; color: #4b5563; text-align: center; margin-bottom: 2rem; line-height: 1.4;">Measurements are in inches. Flat lay width represents half the chest circumference.</p>
+        <div class="size-guide-modal__table-wrapper">
+          <table class="size-guide-modal__table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Width (Inches)</th>
+                <th>Length (Inches)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight: 600;">S</td><td>20"</td><td>27"</td></tr>
+              <tr><td style="font-weight: 600;">M</td><td>22"</td><td>28"</td></tr>
+              <tr><td style="font-weight: 600;">L</td><td>24"</td><td>29"</td></tr>
+              <tr><td style="font-weight: 600;">XL</td><td>26"</td><td>30"</td></tr>
+              <tr><td style="font-weight: 600;">XXL</td><td>28"</td><td>31"</td></tr>
+              <tr><td style="font-weight: 600;">3XL</td><td>30"</td><td>32"</td></tr>
+            </tbody>
+          </table>
+        </div>
+      {%- elsif size_guide_type == 'mug' -%}
+        <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 600; text-align: center; color: #111;">Size Guide (Coffee Mug)</h3>
+        <p style="font-size: 1.3rem; color: #4b5563; text-align: center; margin-bottom: 2rem; line-height: 1.4;">Volume and dimensional specifications for our premium mugs.</p>
+        <div class="size-guide-modal__table-wrapper">
+          <table class="size-guide-modal__table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Height</th>
+                <th>Diameter</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight: 600;">11 oz</td><td>3.8"</td><td>3.2"</td></tr>
+              <tr><td style="font-weight: 600;">15 oz</td><td>4.5"</td><td>3.4"</td></tr>
+            </tbody>
+          </table>
+        </div>
+      {%- else -%}
+        <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 600; text-align: center; color: #111;">Size Guide (Unisex T-Shirt)</h3>
+        <p style="font-size: 1.3rem; color: #4b5563; text-align: center; margin-bottom: 2rem; line-height: 1.4;">Measurements are in inches. Flat lay width represents half the chest circumference.</p>
+        <div class="size-guide-modal__table-wrapper">
+          <table class="size-guide-modal__table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Width (Inches)</th>
+                <th>Length (Inches)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight: 600;">S</td><td>18"</td><td>28"</td></tr>
+              <tr><td style="font-weight: 600;">M</td><td>20"</td><td>29"</td></tr>
+              <tr><td style="font-weight: 600;">L</td><td>22"</td><td>30"</td></tr>
+              <tr><td style="font-weight: 600;">XL</td><td>24"</td><td>31"</td></tr>
+              <tr><td style="font-weight: 600;">XXL</td><td>26"</td><td>32"</td></tr>
+              <tr><td style="font-weight: 600;">3XL</td><td>28"</td><td>33"</td></tr>
+            </tbody>
+          </table>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
