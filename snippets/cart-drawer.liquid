@@ -563,6 +563,80 @@
                 </script>
               {%- endif -%}
             {%- endif -%}
+
+            {% comment %} Cart Drawer Cross-sell Slider {% endcomment %}
+            <div class="cart-drawer-cross-sell">
+              <h4 class="cart-drawer-cross-sell__title">You may also like</h4>
+              <div class="cart-drawer-cross-sell__slider">
+                {%- assign suggested_count = 0 -%}
+                {%- for prod in collections['all'].products -%}
+                  {%- if suggested_count >= 3 -%}
+                    {%- break -%}
+                  {%- endif -%}
+                  
+                  {%- assign product_in_cart = false -%}
+                  {%- for item in cart.items -%}
+                    {%- if item.product.id == prod.id -%}
+                      {%- assign product_in_cart = true -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  
+                  {%- if product_in_cart == false and prod.available -%}
+                    {%- assign prod_variant = prod.variants.first -%}
+                    <div class="cross-sell-item">
+                      <div class="cross-sell-item__media">
+                        {%- if prod.featured_image != blank -%}
+                          <img src="{{ prod.featured_image | image_url: width: 150 }}" alt="{{ prod.title | escape }}" loading="lazy" width="60" height="60">
+                        {%- endif -%}
+                      </div>
+                      <div class="cross-sell-item__info">
+                        <span class="cross-sell-item__name">{{ prod.title | truncate: 35 }}</span>
+                        <span class="cross-sell-item__price">{{ prod_variant.price | money }}</span>
+                        <button type="button" class="button button--secondary button--small cross-sell-item__add-btn" onclick="addCrossSellItem({{ prod_variant.id }}, this)">
+                          Quick Add
+                        </button>
+                      </div>
+                    </div>
+                    {%- assign suggested_count = suggested_count | plus: 1 -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+            
+            <script>
+              function addCrossSellItem(variantId, button) {
+                button.setAttribute('disabled', 'true');
+                button.textContent = 'Adding...';
+                
+                let formData = {
+                  'items': [{
+                    'id': variantId,
+                    'quantity': 1
+                  }]
+                };
+
+                fetch(window.Shopify.routes.root + 'cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                  if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+                    publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-drawer', productVariantId: variantId });
+                  } else {
+                    window.location.reload();
+                  }
+                })
+                .catch((error) => {
+                  console.error('Error adding cross-sell item:', error);
+                  button.removeAttribute('disabled');
+                  button.textContent = 'Quick Add';
+                });
+              }
+            </script>
           </div>
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>

@@ -4353,6 +4353,108 @@ details-disclosure > details {
   min-height: 1.5rem;
 }
 
+/* Cart Drawer Cross-sell Slider */
+.cart-drawer-cross-sell {
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+  border-top: 1px dashed rgba(var(--color-foreground), 0.1);
+}
+
+.cart-drawer-cross-sell__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.2rem 0;
+  color: rgb(var(--color-foreground));
+  padding: 0 1.5rem;
+}
+
+.cart-drawer-cross-sell__slider {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  padding: 0.5rem 1.5rem 1rem 1.5rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.cart-drawer-cross-sell__slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.cart-drawer-cross-sell__slider {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.cross-sell-item {
+  flex: 0 0 220px;
+  display: flex;
+  gap: 1rem;
+  background: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.06);
+  border-radius: 8px;
+  padding: 1rem;
+  align-items: center;
+  transition: border-color 0.3s ease;
+}
+
+.cross-sell-item:hover {
+  border-color: rgba(var(--color-foreground), 0.15);
+}
+
+.cross-sell-item__media {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(var(--color-foreground), 0.05);
+}
+
+.cross-sell-item__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cross-sell-item__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cross-sell-item__name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cross-sell-item__price {
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.7);
+  font-weight: 600;
+}
+
+.cross-sell-item__add-btn {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  min-width: unset;
+  min-height: unset;
+  height: auto;
+  align-self: flex-start;
+  margin-top: 0.2rem;
+  border-radius: 4px;
+}
+
 
 
 
