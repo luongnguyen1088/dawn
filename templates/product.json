@@ -41,6 +41,28 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "delivery_estimator": {
+          "type": "delivery_estimator",
+          "settings": {
+            "message_prefix": "Fast US Shipping. Estimated Delivery:",
+            "min_delivery_days": 3,
+            "max_delivery_days": 5
+          }
+        },
+        "trust_badges": {
+          "type": "trust_badges",
+          "settings": {
+            "heading": "Secure Checkout & Satisfaction Guarantee"
+          }
+        },
+        "care_instructions": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Care Instructions",
+            "icon": "washing",
+            "content": "<p><strong>Wash</strong>: Machine wash cold, inside-out, gentle cycle with mild detergent and similar colors.</p><p><strong>Dry</strong>: Tumble dry low, or hang-dry for the longest life.</p><p><strong>Iron</strong>: Cool iron inside-out if necessary. Do not iron the printed design directly.</p><p><strong>Avoid</strong>: Do not dry clean or use fabric softeners.</p>"
+          }
         }
       },
       "block_order": [
@@ -50,7 +72,10 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "delivery_estimator",
+        "trust_badges",
         "description",
+        "care_instructions",
         "share"
       ],
       "settings": {
