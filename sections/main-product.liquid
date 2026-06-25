@@ -728,6 +728,33 @@
                       document.getElementById('delivery-est-end').textContent = endDate.toLocaleDateString('en-US', options);
                     })();
                   </script>
+                {%- when 'trust_badges' -%}
+                  {% comment %} Trust Badges Block {% endcomment %}
+                  <div class="product__trust-badges" {{ block.shopify_attributes }}>
+                    {%- if block.settings.heading != blank -%}
+                      <p class="product__trust-badges-title">{{ block.settings.heading }}</p>
+                    {%- endif -%}
+                    <div class="product__trust-badges-list">
+                      <div class="product__trust-badge-item">
+                        <span class="product__trust-badge-icon svg-wrapper">
+                          {{- 'icon-padlock.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="product__trust-badge-text">Secure Checkout</span>
+                      </div>
+                      <div class="product__trust-badge-item">
+                        <span class="product__trust-badge-icon svg-wrapper">
+                          {{- 'icon-star.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="product__trust-badge-text">Satisfaction Guaranteed</span>
+                      </div>
+                      <div class="product__trust-badge-item">
+                        <span class="product__trust-badge-icon svg-wrapper">
+                          {{- 'icon-return.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="product__trust-badge-text">Easy Returns</span>
+                      </div>
+                    </div>
+                  </div>
               {%- endcase -%}
             {%- endfor -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -2213,6 +2240,19 @@
           "step": 1,
           "default": 5,
           "label": "Maximum Delivery Days"
+        }
+      ]
+    },
+    {
+      "type": "trust_badges",
+      "name": "Trust Badges",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Secure Checkout & Satisfaction Guarantee",
+          "label": "Heading"
         }
       ]
     }

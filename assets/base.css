@@ -3686,3 +3686,92 @@ details-disclosure > details {
   box-shadow: 0 0 0 2px rgb(var(--color-background));
 }
 
+/* Custom Trust Badges */
+.product__trust-badges {
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  background: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  border-radius: 4px;
+}
+.product__trust-badges-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+  color: rgb(var(--color-foreground));
+}
+.product__trust-badges-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.product__trust-badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  min-width: 80px;
+}
+.product__trust-badge-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: #2ecc71; /* Accent green for trust */
+}
+.product__trust-badge-text {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  font-weight: 500;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* Custom Cart Drawer Upsell */
+.cart-drawer__upsell-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.2rem;
+  margin: 1.5rem;
+  background: rgba(var(--color-foreground), 0.02);
+  border: 1px dashed rgba(var(--color-foreground), 0.15);
+  border-radius: 4px;
+}
+.cart-drawer__upsell-image-wrapper {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+}
+.cart-drawer__upsell-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cart-drawer__upsell-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  gap: 1rem;
+}
+.cart-drawer__upsell-text {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  margin: 0;
+  color: rgb(var(--color-foreground));
+}
+.cart-drawer__upsell-button {
+  flex-shrink: 0;
+  min-width: 60px;
+  height: 32px;
+  padding: 0 1.5rem;
+  font-size: 1.2rem;
+}
+
+
+

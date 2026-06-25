@@ -501,6 +501,68 @@
             <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
               {{ 'accessibility.loading' | t }}
             </p>
+
+            {% comment %} In-cart Upsell {% endcomment %}
+            {%- assign upsell_handle = settings.upsell_product_handle | default: 'gift-wrapping' -%}
+            {%- assign upsell_product = all_products[upsell_handle] -%}
+            {%- if upsell_product != blank -%}
+              {%- assign upsell_variant = upsell_product.variants.first -%}
+              {%- assign in_cart = false -%}
+              {%- for item in cart.items -%}
+                {%- if item.product.id == upsell_product.id -%}
+                  {%- assign in_cart = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if in_cart == false and upsell_variant.available -%}
+                <div class="cart-drawer__upsell-container">
+                  <div class="cart-drawer__upsell-image-wrapper">
+                    {%- if upsell_product.featured_image != blank -%}
+                      <img class="cart-drawer__upsell-image" src="{{ upsell_product.featured_image | image_url: width: 120 }}" alt="{{ upsell_product.title | escape }}" loading="lazy" width="60" height="60">
+                    {%- endif -%}
+                  </div>
+                  <div class="cart-drawer__upsell-details">
+                    <p class="cart-drawer__upsell-text">Add <strong>{{ upsell_product.title }}</strong> for only <strong>{{ upsell_variant.price | money }}</strong>?</p>
+                    <button type="button" class="button button--secondary cart-drawer__upsell-button" onclick="addCartDrawerUpsell({{ upsell_variant.id }}, this)">
+                      Add
+                    </button>
+                  </div>
+                </div>
+                <script>
+                  function addCartDrawerUpsell(variantId, button) {
+                    button.setAttribute('disabled', 'true');
+                    button.classList.add('loading');
+                    
+                    let formData = {
+                     'items': [{
+                      'id': variantId,
+                      'quantity': 1
+                      }]
+                    };
+
+                    fetch(window.Shopify.routes.root + 'cart/add.js', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify(formData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                      if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+                        publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-drawer', productVariantId: variantId });
+                      } else {
+                        window.location.reload();
+                      }
+                    })
+                    .catch((error) => {
+                      console.error('Error adding upsell:', error);
+                      button.removeAttribute('disabled');
+                      button.classList.remove('loading');
+                    });
+                  }
+                </script>
+              {%- endif -%}
+            {%- endif -%}
           </div>
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
