@@ -66,20 +66,65 @@
         },
         "faq_tab": {
           "type": "faq_tab"
+        },
+        "fbt": {
+          "type": "fbt",
+          "settings": {
+            "title": "Frequently Bought Together",
+            "product_1": "dream-big-work-hard-oversize-190-gsm-in-mat-truoc",
+            "product_2": "ao-khoac-vang-nang-dong-oversize-250-gsm-in-mat-truoc",
+            "button_text": "Add Combo to Cart"
+          }
+        },
+        "quantity_breaks": {
+          "type": "quantity_breaks",
+          "settings": {
+            "title": "Buy More & Save!"
+          }
+        },
+        "personalization_text": {
+          "type": "personalization_text",
+          "settings": {
+            "label": "Personalize your T-Shirt",
+            "placeholder": "Enter text here...",
+            "max_chars": 25,
+            "required": true
+          }
+        },
+        "personalization_file": {
+          "type": "personalization_file",
+          "settings": {
+            "label": "Upload your Photo",
+            "required": false
+          }
+        },
+        "sold_counter": {
+          "type": "sold_counter",
+          "settings": {
+            "min_sold": 12,
+            "max_sold": 29,
+            "min_viewers": 4,
+            "max_viewers": 12
+          }
         }
       },
       "block_order": [
         "vendor",
         "title",
+        "sold_counter",
         "price",
         "variant_picker",
+        "personalization_text",
+        "personalization_file",
         "quantity_selector",
+        "quantity_breaks",
         "buy_buttons",
         "delivery_estimator",
         "trust_badges",
         "description",
         "care_instructions",
         "faq_tab",
+        "fbt",
         "share"
       ],
       "settings": {
