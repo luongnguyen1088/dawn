@@ -588,6 +588,94 @@
           </details>
         {%- endif -%}
 
+        <div class="cart-drawer-gift-note">
+          {%- assign gift_msg = cart.attributes['Gift Message'] -%}
+          <div class="gift-note-checkbox-wrapper">
+            <input type="checkbox" id="CartDrawer-GiftCheck" {% if gift_msg != blank %}checked{% endif %}>
+            <label for="CartDrawer-GiftCheck">
+              <svg class="icon icon-gift" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.5rem;">
+                <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                <rect x="2" y="7" width="20" height="5"></rect>
+                <line x1="12" y1="22" x2="12" y2="7"></line>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+              </svg>
+              Is this a gift? Add a free message card!
+            </label>
+          </div>
+          <div class="gift-note-textarea-wrapper {% if gift_msg != blank %}active{% endif %}">
+            <textarea
+              id="CartDrawer-GiftMessage"
+              placeholder="Write your gift message here (max 160 characters)..."
+              maxlength="160"
+            >{{ gift_msg }}</textarea>
+            <div class="gift-note-status">
+              <span class="gift-note-save-status"></span>
+            </div>
+          </div>
+        </div>
+        <script>
+          (function() {
+            const giftCheck = document.getElementById('CartDrawer-GiftCheck');
+            const giftMsgArea = document.getElementById('CartDrawer-GiftMessage');
+            const wrapper = giftCheck.closest('.cart-drawer-gift-note').querySelector('.gift-note-textarea-wrapper');
+            const statusEl = wrapper.querySelector('.gift-note-save-status');
+
+            if (!giftCheck || !giftMsgArea) return;
+
+            let debounceTimeout;
+
+            function saveGiftMessage(message) {
+              statusEl.textContent = 'Saving...';
+              
+              fetch(`${window.routes.cart_url}/update.js`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                  attributes: {
+                    'Gift Message': message
+                  }
+                })
+              })
+              .then(response => response.json())
+              .then(data => {
+                statusEl.textContent = 'Saved!';
+                setTimeout(() => {
+                  if (statusEl.textContent === 'Saved!') {
+                    statusEl.textContent = '';
+                  }
+                }, 2000);
+              })
+              .catch(error => {
+                console.error('Error saving gift message:', error);
+                statusEl.textContent = 'Error saving message';
+              });
+            }
+
+            giftCheck.addEventListener('change', function() {
+              if (this.checked) {
+                wrapper.classList.add('active');
+                giftMsgArea.focus();
+                saveGiftMessage(giftMsgArea.value);
+              } else {
+                wrapper.classList.remove('active');
+                giftMsgArea.value = '';
+                saveGiftMessage('');
+              }
+            });
+
+            giftMsgArea.addEventListener('input', function() {
+              clearTimeout(debounceTimeout);
+              debounceTimeout = setTimeout(() => {
+                saveGiftMessage(this.value);
+              }, 600);
+            });
+          })();
+        </script>
+
         <!-- Start blocks -->
         <!-- Subtotals -->
 
