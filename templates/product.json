@@ -41,90 +41,16 @@
           "settings": {
             "share_label": "Share"
           }
-        },
-        "delivery_estimator": {
-          "type": "delivery_estimator",
-          "settings": {
-            "message_prefix": "Fast US Shipping. Estimated Delivery:",
-            "min_delivery_days": 3,
-            "max_delivery_days": 5
-          }
-        },
-        "trust_badges": {
-          "type": "trust_badges",
-          "settings": {
-            "heading": "Secure Checkout & Satisfaction Guarantee"
-          }
-        },
-        "care_instructions": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Care Instructions",
-            "icon": "washing",
-            "content": "<p><strong>Wash</strong>: Machine wash cold, inside-out, gentle cycle with mild detergent and similar colors.</p><p><strong>Dry</strong>: Tumble dry low, or hang-dry for the longest life.</p><p><strong>Iron</strong>: Cool iron inside-out if necessary. Do not iron the printed design directly.</p><p><strong>Avoid</strong>: Do not dry clean or use fabric softeners.</p>"
-          }
-        },
-        "faq_tab": {
-          "type": "faq_tab"
-        },
-        "fbt": {
-          "type": "fbt",
-          "settings": {
-            "title": "Frequently Bought Together",
-            "product_1": "dream-big-work-hard-oversize-190-gsm-in-mat-truoc",
-            "product_2": "ao-khoac-vang-nang-dong-oversize-250-gsm-in-mat-truoc",
-            "button_text": "Add Combo to Cart"
-          }
-        },
-        "quantity_breaks": {
-          "type": "quantity_breaks",
-          "settings": {
-            "title": "Buy More & Save!"
-          }
-        },
-        "personalization_text": {
-          "type": "personalization_text",
-          "settings": {
-            "label": "Personalize your T-Shirt",
-            "placeholder": "Enter text here...",
-            "max_chars": 25,
-            "required": true
-          }
-        },
-        "personalization_file": {
-          "type": "personalization_file",
-          "settings": {
-            "label": "Upload your Photo",
-            "required": false
-          }
-        },
-        "sold_counter": {
-          "type": "sold_counter",
-          "settings": {
-            "min_sold": 12,
-            "max_sold": 29,
-            "min_viewers": 4,
-            "max_viewers": 12
-          }
         }
       },
       "block_order": [
         "vendor",
         "title",
-        "sold_counter",
         "price",
         "variant_picker",
-        "personalization_text",
-        "personalization_file",
         "quantity_selector",
-        "quantity_breaks",
         "buy_buttons",
-        "delivery_estimator",
-        "trust_badges",
         "description",
-        "care_instructions",
-        "faq_tab",
-        "fbt",
         "share"
       ],
       "settings": {
