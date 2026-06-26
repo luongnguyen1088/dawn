@@ -6,16 +6,17 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign currencies = localization.available_countries | map: 'currency' | map: 'iso_code' | uniq
-  assign popular_countries = localization.available_countries | where: 'popular?' | sort: 'name'
+  assign available_countries = localization.available_countries | where_exp: "item", "item.iso_code != 'VN'"
+  assign currencies = available_countries | map: 'currency' | map: 'iso_code' | uniq
+  assign popular_countries = available_countries | where: 'popular?' | sort: 'name'
 
   assign show_country_filter = false
-  if localization.available_countries.size > 9
+  if available_countries.size > 9
     assign show_country_filter = true
   endif
 
   assign show_popular_countries = false
-  if localization.available_countries.size > 9 and popular_countries.size > 1
+  if available_countries.size > 9 and popular_countries.size > 1
     assign show_popular_countries = true
   endif
 
@@ -122,7 +123,7 @@
         </ul>
       {% endif %}
       <ul role="list" class="list-unstyled countries">
-        {%- for country in localization.available_countries -%}
+        {%- for country in available_countries -%}
           <li class="disclosure__item" tabindex="-1">
             <a
               class="link link--text disclosure__link caption-large focus-inset"
