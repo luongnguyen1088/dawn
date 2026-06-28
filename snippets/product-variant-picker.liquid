@@ -130,6 +130,73 @@
       {{ product.selected_or_first_available_variant | json }}
     </script>
   </variant-selects>
+
+  <!-- Size Guide Modal -->
+  <div class="size-guide-modal" id="size-guide-modal-{{ section.id }}" aria-hidden="true">
+    <div class="size-guide-modal__overlay" onclick="closeSizeGuideModal('{{ section.id }}')"></div>
+    <div class="size-guide-modal__content" role="dialog" aria-labelledby="modal-title-{{ section.id }}">
+      <button type="button" class="size-guide-modal__close" onclick="closeSizeGuideModal('{{ section.id }}')" aria-label="Đóng">&times;</button>
+      <h2 class="size-guide-modal__title" id="modal-title-{{ section.id }}">Bảng Size Hướng Dẫn</h2>
+      <p class="size-guide-modal__subtitle">Sản phẩm có form oversized rộng rãi, phóng khoáng. Nếu bạn thích mặc form vừa vặn thông thường, vui lòng lùi lại 1 size.</p>
+      
+      <div class="size-guide-modal__table-wrapper">
+        <table class="size-guide-modal__table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Ngang Ngực (cm)</th>
+              <th>Chiều Dài (cm)</th>
+              <th>Dài Tay (cm)</th>
+              <th>Chiều Cao Gợi Ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>S</strong></td>
+              <td>57</td>
+              <td>67</td>
+              <td>59</td>
+              <td>1m60 - 1m70</td>
+            </tr>
+            <tr>
+              <td><strong>M</strong></td>
+              <td>60</td>
+              <td>70</td>
+              <td>61</td>
+              <td>1m70 - 1m78</td>
+            </tr>
+            <tr>
+              <td><strong>L</strong></td>
+              <td>63</td>
+              <td>73</td>
+              <td>63</td>
+              <td>1m78 - 1m85</td>
+            </tr>
+            <tr class="muted-row">
+              <td><strong>XL (Hết hàng)</strong></td>
+              <td>66</td>
+              <td>76</td>
+              <td>65</td>
+              <td>1m85 - 1m90</td>
+            </tr>
+            <tr class="muted-row">
+              <td><strong>XXL (Hết hàng)</strong></td>
+              <td>69</td>
+              <td>79</td>
+              <td>67</td>
+              <td>Trên 1m90</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="size-guide-modal__tips">
+        <h3 class="size-guide-modal__tips-title">Mẹo chọn kích thước:</h3>
+        <p><strong>Ngang ngực:</strong> Đo chiều rộng vòng ngực lớn nhất của bạn hoặc đo bề rộng chiếc áo thun/áo hoodie bạn đang mặc thoải mái nhất.</p>
+        <p><strong>Chiều dài:</strong> Đo từ điểm cao nhất của vai thẳng xuống hết lai áo.</p>
+      </div>
+    </div>
+  </div>
 {%- endunless -%}
 
 <style>

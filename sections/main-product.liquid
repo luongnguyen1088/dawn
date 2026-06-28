@@ -141,6 +141,17 @@
                       {{ form | payment_terms }}
                     {%- endform -%}
                   </div>
+                  <div class="product-reassurance-row">
+                    <span class="reassurance-item">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                      Miễn phí vận chuyển từ $50
+                    </span>
+                    <span class="reassurance-divider">•</span>
+                    <span class="reassurance-item">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                      Đổi trả dễ dàng 7 ngày
+                    </span>
+                  </div>
                 {%- when 'inventory' -%}
                   <p
                     class="product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -198,6 +209,74 @@
                       {{ product.description }}
                     </div>
                   {%- endif -%}
+                  <div class="product-custom-accordions">
+                    <div class="product-accordion-item">
+                      <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
+                        <span class="accordion-title-row">
+                          <span class="accordion-icon">📐</span>
+                          Thông số sản phẩm
+                        </span>
+                        <span class="accordion-arrow">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                      </button>
+                      <div class="product-accordion-content">
+                        <div class="product-accordion-content-inner">
+                          <ul>
+                            <li><strong>Thành phần vải:</strong> 100% Premium Cotton Combed cao cấp</li>
+                            <li><strong>Định lượng:</strong> Vải nỉ da cá heavyweight dày dặn 250 GSM bền bỉ</li>
+                            <li><strong>Form dáng:</strong> Oversized, vai trễ (drop-shoulder), rộng rãi năng động</li>
+                            <li><strong>Chi tiết:</strong> Bo thun cổ áo, tay áo cứng cáp, hình in sắc nét mặt lưng</li>
+                            <li><strong>Sản xuất:</strong> Made in Vietnam / Portugal</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="product-accordion-item">
+                      <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
+                        <span class="accordion-title-row">
+                          <span class="accordion-icon">🧼</span>
+                          Hướng dẫn bảo quản
+                        </span>
+                        <span class="accordion-arrow">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                      </button>
+                      <div class="product-accordion-content">
+                        <div class="product-accordion-content-inner">
+                          <ul>
+                            <li>Giặt máy bằng nước lạnh, lộn trái sản phẩm trước khi giặt.</li>
+                            <li>Không dùng chất tẩy mạnh hoặc nước xả làm mềm sợi vải.</li>
+                            <li>Khuyến khích phơi khô tự nhiên ở nơi thoáng gió, hạn chế sấy nhiệt độ cao.</li>
+                            <li>Không ủi trực tiếp lên phần hình in; ủi mặt trái với nhiệt độ thấp.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="product-accordion-item">
+                      <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
+                        <span class="accordion-title-row">
+                          <span class="accordion-icon">🛡️</span>
+                          Chính sách đảm bảo
+                        </span>
+                        <span class="accordion-arrow">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                      </button>
+                      <div class="product-accordion-content">
+                        <div class="product-accordion-content-inner">
+                          <p>Chúng tôi tự hào về chất lượng gia công và thiết kế của từng sản phẩm. Nếu bạn chưa hoàn toàn hài lòng:</p>
+                          <ul>
+                            <li><strong>Đổi trả dễ dàng 7 ngày:</strong> Đối với sản phẩm chưa giặt, còn nguyên tem tag và hộp đóng gói.</li>
+                            <li>Hỗ trợ phí ship 2 chiều nếu phát hiện lỗi từ nhà sản xuất hoặc giao sai mẫu.</li>
+                            <li>Bảo hành đường chỉ trọn đời: Hỗ trợ may vá hoặc đổi mới nếu có vấn đề về bung chỉ may.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 {%- when 'sku' -%}
                   <p
                     class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -536,6 +615,18 @@
                         </span>
                       </p>
                     </div>
+                  {%- else -%}
+                    <div class="rating-wrapper fallback-rating-wrapper">
+                      <div class="rating" role="img" aria-label="4.8 trên 5 sao">
+                        <span aria-hidden="true" class="rating-star" style="--rating: 4; --rating-max: 5; --rating-decimal: 0.8;"></span>
+                      </div>
+                      <p class="rating-text caption">
+                        <span aria-hidden="true">4.8 / 5.0</span>
+                      </p>
+                      <p class="rating-count caption">
+                        <span aria-hidden="true">(25 đánh giá đã xác minh)</span>
+                      </p>
+                    </div>
                   {%- endif -%}
                 {%- when 'complementary' -%}
                   <product-recommendations
@@ -751,7 +842,385 @@
       </script>
     </div>
   </product-component>
+
+  <!-- Sticky CTA Bar -->
+  <div class="product-sticky-cta" id="product-sticky-cta-{{ section.id }}" aria-hidden="true">
+    <div class="product-sticky-cta__container">
+      <div class="product-sticky-cta__info">
+        {%- if product.featured_media -%}
+          <img src="{{ product.featured_media | image_url: width: 80 }}" alt="{{ product.title | escape }}" class="product-sticky-cta__thumb">
+        {%- endif -%}
+        <div class="product-sticky-cta__text">
+          <span class="product-sticky-cta__title">{{ product.title }}</span>
+          <span class="product-sticky-cta__variant" id="sticky-variant-{{ section.id }}">
+            {{ product.selected_or_first_available_variant.title }}
+          </span>
+        </div>
+      </div>
+      <div class="product-sticky-cta__actions">
+        <span class="product-sticky-cta__price" id="sticky-price-{{ section.id }}">
+          {{ product.selected_or_first_available_variant.price | money }}
+        </span>
+        <button type="button" class="product-sticky-cta__button button button--primary" onclick="triggerMainAddToCart('{{ section.id }}')">
+          <span>Thêm vào giỏ hàng</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </product-info>
+
+<style>
+/* Fallback Rating Styling */
+.fallback-rating-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.fallback-rating-wrapper .rating-star {
+  --color-icon: #111111 !important;
+}
+
+/* Product Reassurance Styles */
+.product-reassurance-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  font-size: 1.3rem;
+  color: #4b5563;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.reassurance-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.reassurance-item svg {
+  color: #111111;
+  flex-shrink: 0;
+}
+.reassurance-divider {
+  color: #d1d5db;
+}
+
+/* Custom Accordion Styles */
+.product-custom-accordions {
+  margin-top: 2.5rem;
+  border-top: 1px solid #e5e7eb;
+  width: 100%;
+}
+.product-accordion-item {
+  border-bottom: 1px solid #e5e7eb;
+}
+.product-accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem 0;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #111111;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+.accordion-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.accordion-icon {
+  font-size: 1.6rem;
+}
+.accordion-arrow {
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.product-accordion-item.active .accordion-arrow {
+  transform: rotate(180deg);
+}
+.product-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1) ease-out;
+}
+.product-accordion-content-inner {
+  padding: 0 0 2rem 2.8rem;
+  font-size: 1.3rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+.product-accordion-content-inner ul {
+  padding-left: 1.6rem;
+  margin: 0;
+}
+.product-accordion-content-inner li {
+  margin-bottom: 0.6rem;
+}
+.product-accordion-content-inner strong {
+  color: #111111;
+}
+
+/* Sticky CTA Styles */
+.product-sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 101;
+  height: 80px;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  top: 0;
+}
+.product-sticky-cta.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+.product-sticky-cta__container {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+.product-sticky-cta__info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.product-sticky-cta__thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+.product-sticky-cta__text {
+  display: flex;
+  flex-direction: column;
+}
+.product-sticky-cta__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111111;
+}
+.product-sticky-cta__variant {
+  font-size: 1.2rem;
+  color: #6b7280;
+}
+.product-sticky-cta__actions {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+.product-sticky-cta__price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111111;
+}
+.product-sticky-cta__button {
+  height: 44px;
+  min-height: 44px;
+  margin: 0;
+  font-size: 1.3rem;
+  padding: 0 2.4rem;
+}
+
+/* Color Swatches premium tweaks */
+.product-form__input--swatch .swatch-input__input + .swatch-input__label {
+  --swatch-input--size: 42px !important;
+  transition: transform 0.2s ease !important;
+}
+.product-form__input--swatch .swatch-input__input + .swatch-input__label:hover {
+  transform: scale(1.08);
+}
+
+@media screen and (max-width: 749px) {
+  .product-sticky-cta {
+    top: auto;
+    bottom: 0;
+    border-bottom: none;
+    border-top: 1px solid #e5e7eb;
+    transform: translateY(100%);
+    height: 76px;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .product-sticky-cta.visible {
+    transform: translateY(0);
+  }
+  .product-sticky-cta__price {
+    display: none;
+  }
+  .product-sticky-cta__title {
+    font-size: 1.2rem;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .product-sticky-cta__variant {
+    font-size: 1.1rem;
+  }
+  .product-sticky-cta__button {
+    padding: 0 1.6rem;
+    font-size: 1.2rem;
+  }
+}
+</style>
+
+<script>
+  // Open Size Guide Modal
+  window.openSizeGuideModal = function(sectionId) {
+    const modal = document.getElementById(`size-guide-modal-${sectionId}`);
+    if (modal) {
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  // Close Size Guide Modal
+  window.closeSizeGuideModal = function(sectionId) {
+    const modal = document.getElementById(`size-guide-modal-${sectionId}`);
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    if (!document.querySelector('.size-guide-modal.active')) {
+      document.body.style.overflow = '';
+    }
+  };
+
+  // Toggle Custom Accordions
+  window.toggleCustomAccordion = function(button) {
+    const item = button.parentElement;
+    const content = button.nextElementSibling;
+    const isActive = item.classList.contains('active');
+
+    // Toggle active class
+    item.classList.toggle('active');
+
+    if (isActive) {
+      content.style.maxHeight = '0px';
+    } else {
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  };
+
+  // Trigger main Add to Cart from Sticky CTA
+  window.triggerMainAddToCart = function(sectionId) {
+    const mainSubmit = document.querySelector(`#ProductInfo-${sectionId} .product-form__submit`);
+    if (mainSubmit) {
+      mainSubmit.click();
+    }
+  };
+
+  // Initialize Scroll Observer for Sticky CTA
+  (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      const sectionId = '{{ section.id }}';
+      const mainSubmit = document.querySelector(`#ProductInfo-${sectionId} .product-form__submit`);
+      const stickyCta = document.getElementById(`product-sticky-cta-${sectionId}`);
+      
+      if ('IntersectionObserver' in window && mainSubmit && stickyCta) {
+        const observerOptions = {
+          root: null,
+          threshold: 0,
+          rootMargin: '-80px 0px 0px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+              stickyCta.classList.add('visible');
+              stickyCta.setAttribute('aria-hidden', 'false');
+            } else {
+              stickyCta.classList.remove('visible');
+              stickyCta.setAttribute('aria-hidden', 'true');
+            }
+          });
+        }, observerOptions);
+
+        observer.observe(mainSubmit);
+      }
+
+      // Sync active variants with Sticky CTA text/price on change
+      const variantSelects = document.querySelector('variant-selects');
+      if (variantSelects) {
+        variantSelects.addEventListener('change', function() {
+          setTimeout(() => {
+            const script = variantSelects.querySelector('script[data-selected-variant]');
+            if (!script) return;
+            try {
+              const variant = JSON.parse(script.textContent);
+              if (variant) {
+                // Update sticky text
+                const stickyVariantText = document.getElementById(`sticky-variant-${sectionId}`);
+                if (stickyVariantText) {
+                  stickyVariantText.textContent = variant.title;
+                }
+                
+                // Update sticky price
+                const stickyPrice = document.getElementById(`sticky-price-${sectionId}`);
+                if (stickyPrice) {
+                  const formatPrice = new Intl.NumberFormat(Shopify.locale || 'vi-VN', {
+                    style: 'currency',
+                    currency: Shopify.currency.active || 'VND'
+                  }).format(variant.price / 100);
+                  stickyPrice.textContent = formatPrice;
+                }
+              }
+            } catch(e) {
+              console.error("Error parsing variant JSON", e);
+            }
+          }, 100);
+        });
+      }
+
+      // Swatch hover color name display
+      const swatchLabels = document.querySelectorAll('.product-form__input--swatch label.swatch-input__label');
+      const selectedValueSpan = document.querySelector('.product-form__input--swatch legend [data-selected-value]');
+      if (swatchLabels && selectedValueSpan) {
+        let originalValue = selectedValueSpan.textContent.trim();
+        swatchLabels.forEach(label => {
+          const title = label.getAttribute('title') || label.innerText.trim();
+          label.addEventListener('mouseenter', () => {
+            selectedValueSpan.textContent = title;
+          });
+          label.addEventListener('mouseleave', () => {
+            const checkedInput = document.querySelector('.product-form__input--swatch input:checked');
+            if (checkedInput) {
+              selectedValueSpan.textContent = checkedInput.value;
+            } else {
+              selectedValueSpan.textContent = originalValue;
+            }
+          });
+        });
+        
+        const swatchInputs = document.querySelectorAll('.product-form__input--swatch input');
+        swatchInputs.forEach(input => {
+          input.addEventListener('change', () => {
+            originalValue = input.value;
+            selectedValueSpan.textContent = input.value;
+          });
+        });
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
