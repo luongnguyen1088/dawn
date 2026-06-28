@@ -204,12 +204,7 @@
                     {%- endif -%}
                   </p>
                 {%- when 'description' -%}
-                  {%- if product.description != blank -%}
-                    <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                      {{ product.description }}
-                    </div>
-                  {%- endif -%}
-                  <div class="product-custom-accordions">
+                  <div class="product-custom-accordions" {{ block.shopify_attributes }}>
                     <div class="product-accordion-item">
                       <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
                         <span class="accordion-title-row">
@@ -1132,6 +1127,21 @@
   (function() {
     document.addEventListener('DOMContentLoaded', function() {
       const sectionId = '{{ section.id }}';
+
+      // Initialize custom accordions: first tab expanded on desktop, collapsed on mobile
+      const firstAccordionItem = document.querySelector('.product-custom-accordions .product-accordion-item');
+      if (firstAccordionItem) {
+        const content = firstAccordionItem.querySelector('.product-accordion-content');
+        if (content) {
+          if (window.innerWidth >= 750) {
+            firstAccordionItem.classList.add('active');
+            content.style.maxHeight = content.scrollHeight + 'px';
+          } else {
+            firstAccordionItem.classList.remove('active');
+            content.style.maxHeight = '0px';
+          }
+        }
+      }
       const mainSubmit = document.querySelector(`#ProductInfo-${sectionId} .product-form__submit`);
       const stickyCta = document.getElementById(`product-sticky-cta-${sectionId}`);
       
