@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KÄLLA Heavyweight Hoodie | KÄLLA Studio</title>
+  <meta name="description" content="Explore the KÄLLA Heavyweight Hoodie. Featuring an oversized boxy fit, premium 250 GSM loopback cotton, and minimalist back print. Free shipping on orders over $50.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <p>Summer Release: Free worldwide shipping on orders over $50</p>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="#">KÄLLA</a>
+      </div>
+      <nav class="nav-links">
+        <a href="#">New Arrivals</a>
+        <a href="#">Shop</a>
+        <a href="#">Journal</a>
+        <a href="#">About</a>
+      </nav>
+      <div class="header-icons">
+        <button class="icon-btn" aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="icon-btn" aria-label="Account">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </button>
+        <button class="icon-btn cart-icon" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <span class="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky CTA Bar (Desktop top / Mobile bottom) -->
+  <div class="sticky-cta-bar" id="sticky-cta">
+    <div class="sticky-cta-container">
+      <div class="sticky-product-info">
+        <img src="assets/lifestyle_fit.png" alt="KÄLLA Hoodie Thumbnail" class="sticky-thumb" id="sticky-thumb">
+        <div class="sticky-text">
+          <span class="sticky-title">KÄLLA Heavyweight Hoodie</span>
+          <span class="sticky-variant-summary" id="sticky-variant-summary">Charcoal Grey / S</span>
+        </div>
+      </div>
+      <div class="sticky-actions">
+        <span class="sticky-price">$59.00</span>
+        <button class="btn btn-primary btn-sticky-add" id="sticky-add-btn">
+          <span>Add to Cart</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Product Container -->
+  <main class="product-page-container">
+    <div class="product-grid">
+      
+      <!-- Left: Product Media Gallery -->
+      <section class="product-gallery" aria-label="Product Images">
+        <!-- Desktop Grid View / Mobile Carousel View -->
+        <div class="gallery-wrapper" id="gallery-wrapper">
+          <div class="gallery-slide active" data-index="0">
+            <img src="assets/lifestyle_fit.png" alt="KÄLLA Heavyweight Hoodie - Oversized Streetwear Fit" class="zoomable-image">
+            <span class="image-badge">Oversized Fit</span>
+          </div>
+          <div class="gallery-slide" data-index="1">
+            <img src="assets/back_print.png" alt="KÄLLA Heavyweight Hoodie - Minimalist Artistic Back Print" class="zoomable-image">
+            <span class="image-badge">Back Graphic</span>
+          </div>
+          <div class="gallery-slide" data-index="2">
+            <img src="assets/fabric_texture.png" alt="KÄLLA Heavyweight Hoodie - Premium Heavyweight 250 GSM Cotton Fabric Close-up" class="zoomable-image">
+            <span class="image-badge">250 GSM Loopback Cotton</span>
+          </div>
+        </div>
+        
+        <!-- Mobile Carousel Navigation Dots -->
+        <div class="carousel-dots">
+          <button class="dot active" data-index="0" aria-label="Go to slide 1"></button>
+          <button class="dot" data-index="1" aria-label="Go to slide 2"></button>
+          <button class="dot" data-index="2" aria-label="Go to slide 3"></button>
+        </div>
+      </section>
+
+      <!-- Right: Product Info & Form -->
+      <section class="product-details">
+        <div class="product-info-sticky">
+          
+          <!-- Collection / Brand Breadcrumb -->
+          <div class="product-brand">KÄLLA / ESSENTIALS</div>
+
+          <!-- Product Title -->
+          <h1 class="product-title">KÄLLA Heavyweight Hoodie</h1>
+
+          <!-- Trust & Ratings -->
+          <div class="rating-container" id="reviews-anchor">
+            <div class="stars" aria-label="4.8 out of 5 stars">
+              <svg class="star active" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg class="star active" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg class="star active" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg class="star active" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <svg class="star active" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <defs>
+                  <linearGradient id="half-star">
+                    <stop offset="80%" stop-color="currentColor"/>
+                    <stop offset="80%" stop-color="#E2E8F0" stop-opacity="1"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#half-star)"></polygon>
+              </svg>
+            </div>
+            <span class="rating-text">4.8/5.0</span>
+            <span class="rating-count">(25 verified reviews)</span>
+          </div>
+
+          <!-- Pricing & Promo -->
+          <div class="price-container">
+            <span class="price-sale">$59.00</span>
+            <span class="price-original">$85.00</span>
+            <span class="promo-badge">SAVE 30%</span>
+          </div>
+
+          <!-- Shipping & Returns Reassurance Line -->
+          <div class="reassurance-row">
+            <span class="reassurance-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+              Free Shipping on orders over $50
+            </span>
+            <span class="reassurance-divider">•</span>
+            <span class="reassurance-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+              7-day hassle-free returns
+            </span>
+          </div>
+
+          <hr class="divider">
+
+          <!-- VARIANT SELECTION: COLOR -->
+          <div class="variant-section color-picker-section">
+            <div class="variant-header">
+              <span class="variant-label">Color: <span class="variant-selected-value" id="selected-color-name">Charcoal Grey</span></span>
+            </div>
+            <div class="swatches-grid">
+              <button class="swatch active" data-color="Charcoal Grey" data-hex="#2E3033" aria-label="Charcoal Grey" style="background-color: #2E3033;"></button>
+              <button class="swatch" data-color="Off-White" data-hex="#F0EFEA" aria-label="Off-White" style="background-color: #F0EFEA;"></button>
+              <button class="swatch" data-color="Olive Green" data-hex="#4D5845" aria-label="Olive Green" style="background-color: #4D5845;"></button>
+            </div>
+          </div>
+
+          <!-- VARIANT SELECTION: SIZE -->
+          <div class="variant-section size-picker-section">
+            <div class="variant-header size-header">
+              <span class="variant-label">Size: <span class="variant-selected-value" id="selected-size-name">S</span></span>
+              <button class="size-guide-btn" id="open-size-guide" aria-label="Open Sizing Guide">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"></path><path d="M3 9h3M3 15h3M21 9h-3M21 15h-3M12 3v3M12 21v-3"></path></svg>
+                Size Guide
+              </button>
+            </div>
+            <div class="sizes-grid">
+              <button class="size-btn active" data-size="S">S</button>
+              <button class="size-btn" data-size="M">M</button>
+              <button class="size-btn" data-size="L">L</button>
+              <button class="size-btn disabled" data-size="XL" disabled aria-label="XL - Out of Stock">
+                XL
+                <span class="strike-line"></span>
+              </button>
+              <button class="size-btn disabled" data-size="XXL" disabled aria-label="XXL - Out of Stock">
+                XXL
+                <span class="strike-line"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quantity and Main CTA Row -->
+          <div class="purchase-row">
+            <div class="quantity-selector-container">
+              <button class="qty-btn minus" id="qty-minus" aria-label="Decrease Quantity">&minus;</button>
+              <input type="number" class="qty-input" id="qty-val" value="1" min="1" readonly aria-label="Quantity">
+              <button class="qty-btn plus" id="qty-plus" aria-label="Increase Quantity">&plus;</button>
+            </div>
+            <button class="btn btn-primary btn-add-to-cart" id="add-to-cart-btn">
+              <span class="btn-text">Add to Cart</span>
+              <div class="spinner-container hidden">
+                <svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>
+              </div>
+            </button>
+          </div>
+
+          <!-- Secondary Dynamic Checkouts -->
+          <div class="dynamic-payment-buttons">
+            <button class="btn btn-secondary btn-shoppay" aria-label="Buy with Shop Pay">
+              Buy with <span class="shoppay-text">shop<span class="pay-bold">pay</span></span>
+            </button>
+            <button class="btn btn-secondary btn-paypal" aria-label="Buy with PayPal">
+              Buy with <span class="paypal-text">Pay<span class="pal-bold">Pal</span></span>
+            </button>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Collapsible Accordion Tabs -->
+          <div class="accordion-container">
+            <!-- Details Tab -->
+            <div class="accordion-item">
+              <button class="accordion-header" aria-expanded="false" aria-controls="accordion-details">
+                <span class="accordion-title-row">
+                  <span class="accordion-icon">📐</span>
+                  Product Details
+                </span>
+                <span class="accordion-arrow">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </button>
+              <div class="accordion-content" id="accordion-details" aria-hidden="true">
+                <div class="accordion-content-inner">
+                  <ul>
+                    <li><strong>Fabric Composition:</strong> 100% Premium Organic Combed Cotton</li>
+                    <li><strong>Weight:</strong> Heavyweight 250 GSM loopback terry fabric</li>
+                    <li><strong>Fit:</strong> Oversized, drop-shoulder relaxed boxy silhouette</li>
+                    <li><strong>Details:</strong> Ribbed hem and cuffs, high-density back art print</li>
+                    <li><strong>Origin:</strong> Made in Portugal</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Care Tab -->
+            <div class="accordion-item">
+              <button class="accordion-header" aria-expanded="false" aria-controls="accordion-care">
+                <span class="accordion-title-row">
+                  <span class="accordion-icon">🧼</span>
+                  Care Instructions
+                </span>
+                <span class="accordion-arrow">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </button>
+              <div class="accordion-content" id="accordion-care" aria-hidden="true">
+                <div class="accordion-content-inner">
+                  <ul>
+                    <li>Machine wash cold inside out with similar colors.</li>
+                    <li>Use mild detergent only; avoid bleach or fabric softeners.</li>
+                    <li>Line drying is highly recommended to preserve fit and print longevity.</li>
+                    <li>Tumble dry low if necessary.</li>
+                    <li>Do not iron directly on the print graphic; iron inside out on low heat.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Guarantee Tab -->
+            <div class="accordion-item">
+              <button class="accordion-header" aria-expanded="false" aria-controls="accordion-guarantee">
+                <span class="accordion-title-row">
+                  <span class="accordion-icon">🛡️</span>
+                  Satisfaction Guarantee
+                </span>
+                <span class="accordion-arrow">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </button>
+              <div class="accordion-content" id="accordion-guarantee" aria-hidden="true">
+                <div class="accordion-content-inner">
+                  <p>We pride ourselves on the design and craftsmanship of our garments. If you are not entirely satisfied with your purchase:</p>
+                  <ul>
+                    <li>Enjoy a <strong>7-day hassle-free return window</strong> for unworn, unwashed items in original tag packaging.</li>
+                    <li>Free return shipping label provided for domestic order exchanges.</li>
+                    <li>Lifetime stitch guarantee: If a seam pulls or fails, we will repair or replace the garment free of charge.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Size Guide Modal -->
+  <div class="modal-overlay" id="size-guide-modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-labelledby="modal-title">
+      <button class="modal-close-btn" id="close-size-guide" aria-label="Close sizing modal">&times;</button>
+      <h2 class="modal-title" id="modal-title">KÄLLA Oversized Sizing Guide</h2>
+      <p class="modal-subtitle">Our items feature an intentional boxy, oversized fit. If you prefer a regular fit, we recommend sizing down.</p>
+      
+      <div class="modal-table-wrapper">
+        <table class="modal-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Chest Width (in)</th>
+              <th>Body Length (in)</th>
+              <th>Sleeve Length (in)</th>
+              <th>Recommended Height</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bold">S</td>
+              <td>22.5</td>
+              <td>26.5</td>
+              <td>23.5</td>
+              <td>5'4" - 5'7"</td>
+            </tr>
+            <tr>
+              <td class="bold">M</td>
+              <td>23.5</td>
+              <td>27.5</td>
+              <td>24.0</td>
+              <td>5'7" - 5'10"</td>
+            </tr>
+            <tr>
+              <td class="bold">L</td>
+              <td>24.5</td>
+              <td>28.5</td>
+              <td>24.5</td>
+              <td>5'10" - 6'1"</td>
+            </tr>
+            <tr class="muted-row">
+              <td class="bold">XL (OOS)</td>
+              <td>25.5</td>
+              <td>29.5</td>
+              <td>25.0</td>
+              <td>6'1" - 6'3"</td>
+            </tr>
+            <tr class="muted-row">
+              <td class="bold">XXL (OOS)</td>
+              <td>26.5</td>
+              <td>30.5</td>
+              <td>25.5</td>
+              <td>6'3"+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-tips">
+        <h3 class="tips-title">Measuring Tips:</h3>
+        <p><strong>Chest:</strong> Measure around the fullest part of your chest, keeping the tape horizontal.</p>
+        <p><strong>Body Length:</strong> Measure from the highest point of the shoulder down to the hem.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zoom Lightbox (Interactive Image View) -->
+  <div class="lightbox-overlay" id="lightbox-modal" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="close-lightbox" aria-label="Close Lightbox">&times;</button>
+      <img src="" alt="Zoomed View" id="lightbox-img">
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <p>&copy; 2026 KÄLLA Studio. Created for premium e-commerce demonstration.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
