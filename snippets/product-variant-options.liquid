@@ -181,7 +181,8 @@
       {{ input_dataset }}
     >
       {% if option_disabled -%}
-        {{- 'products.product.value_unavailable' | t: option_value: (value | split: '(' | first | strip) -}}
+        {%- assign clean_value = value | split: '(' | first | strip -%}
+        {{- 'products.product.value_unavailable' | t: option_value: clean_value -}}
       {%- else -%}
         {{- value | split: '(' | first | strip -}}
       {%- endif %}
