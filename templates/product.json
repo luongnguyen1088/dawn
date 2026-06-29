@@ -82,6 +82,55 @@
         "padding_bottom": 12
       }
     },
+    "why-us": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why Choose Snapzy?",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our streetwear tees are designed for longevity and built from premium 250 GSM organic cotton. Combined with our crack-resistant print technology, we guarantee garments that hold their shape and keep their vibrant graphics wash after wash.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/flat-lay-photorealistic-product-image-for-snapzy-apparel-on-off-white-background-central-item-is-a-cream-colored-heavyweight-250-gsm-organic-cotton-t-shirt-with-a-vintage-hello-summer.png",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "customer-reviews": {
+      "type": "testimonials-carousel",
+      "settings": {
+        "title": "What Our Customers Say",
+        "subtitle": "Rated 4.9/5 stars by over 10,000+ happy customers in the US.",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "disclosures": {
       "type": "disclosures",
       "settings": {
@@ -109,42 +158,6 @@
         "show_rating": false,
         "padding_top": 36,
         "padding_bottom": 28
-      }
-    },
-    "why-us": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Why Choose Snapzy?",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Our streetwear tees are designed for longevity and built from premium 250 GSM organic cotton. Combined with our crack-resistant print technology, we guarantee garments that hold their shape and keep their vibrant graphics wash after wash.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "layout": "image_first",
-        "height": "medium",
-        "desktop_image_width": "medium",
-        "color_scheme": "scheme-1",
-        "image_behavior": "none"
-      }
-    },
-    "customer-reviews": {
-      "type": "testimonials-carousel",
-      "settings": {
-        "title": "What Our Customers Say",
-        "subtitle": "Rated 4.9/5 stars by over 10,000+ happy customers in the US."
       }
     }
   },
