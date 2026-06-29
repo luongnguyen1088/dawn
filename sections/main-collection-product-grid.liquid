@@ -131,15 +131,21 @@
           {%- if collection.products.size == 0 -%}
             <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
               <div class="loading-overlay gradient"></div>
-              <div class="title-wrapper center">
-                <h2 class="title title--primary">
+              <div class="title-wrapper center" style="padding: 6rem 1.5rem; max-width: 55rem; margin: 0 auto;">
+                <h2 class="title title--primary" style="margin-bottom: 1.5rem;">
                   {{ 'sections.collection_template.empty' | t -}}
-                  <br>
-                  {{
-                    'sections.collection_template.use_fewer_filters_html'
-                    | t: link: collection.url, class: 'underlined-link link'
-                  }}
                 </h2>
+                <p style="font-size: 1.5rem; color: rgba(var(--color-foreground), 0.75); margin: 0 auto 3rem auto; line-height: 1.6; max-width: 45rem;">
+                  We are currently updating our streetwear drops. Explore our trending products or start custom designing yours now!
+                </p>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                  <a href="/collections/all" class="button button--primary" style="background-color: #000 !important; color: #fff !important; border: 1px solid #000 !important; font-weight: 700 !important; padding: 1.2rem 3rem !important; border-radius: 4px !important; text-decoration: none !important; display: inline-block !important; transition: all 0.3s ease !important;">
+                    Explore Best Sellers
+                  </a>
+                  <a href="/" class="button button--secondary" style="font-weight: 700 !important; padding: 1.2rem 3rem !important; border-radius: 4px !important; text-decoration: none !important; display: inline-block !important;">
+                    Back To Home
+                  </a>
+                </div>
               </div>
             </div>
           {%- else -%}
