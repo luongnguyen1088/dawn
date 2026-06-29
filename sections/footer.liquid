@@ -157,6 +157,49 @@
               </div>
             {%- endfor -%}
           </div>
+        {%- else -%}
+          <!-- Fallback rich brand footer columns for maximum conversions (CRO) -->
+          <div class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-desktop">
+            <!-- Column 1: Brand / About Snapzy -->
+            <div class="footer-block grid__item">
+              <h2 class="footer-block__heading" style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; color: rgb(var(--color-foreground));">About Snapzy</h2>
+              <div class="footer-block__details-content rte" style="font-size: 13px; line-height: 1.6; color: rgba(var(--color-foreground), 0.75);">
+                <p>Snapzy is a premium streetwear brand specializing in custom organic cotton garments. Designed for longevity and printed with state-of-the-art PET technology.</p>
+              </div>
+            </div>
+            
+            <!-- Column 2: Shop Links -->
+            <div class="footer-block grid__item footer-block--menu">
+              <h2 class="footer-block__heading" style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; color: rgb(var(--color-foreground));">Shop</h2>
+              <ul class="footer-block__details-content list-unstyled" style="display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0;">
+                <li><a href="/collections/all" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">Best Sellers</a></li>
+                <li><a href="/collections/all" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">New Arrivals</a></li>
+                <li><a href="/collections/all" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">Custom T-Shirts</a></li>
+                <li><a href="/collections/all" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">Oversized Hoodies</a></li>
+              </ul>
+            </div>
+            
+            <!-- Column 3: Support & Info -->
+            <div class="footer-block grid__item footer-block--menu">
+              <h2 class="footer-block__heading" style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; color: rgb(var(--color-foreground));">Support</h2>
+              <ul class="footer-block__details-content list-unstyled" style="display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0;">
+                <li><a href="/pages/contact" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">Track Order</a></li>
+                <li><a href="/policies/shipping-policy" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">Shipping Policy</a></li>
+                <li><a href="/policies/refund-policy" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">Returns & Refunds</a></li>
+                <li><a href="/pages/contact" class="link link--text" style="font-size: 13px; color: rgba(var(--color-foreground), 0.75); text-decoration: none;">Contact Us</a></li>
+              </ul>
+            </div>
+            
+            <!-- Column 4: Contact & Office -->
+            <div class="footer-block grid__item">
+              <h2 class="footer-block__heading" style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; color: rgb(var(--color-foreground));">Contact Us</h2>
+              <div class="footer-block__details-content rte" style="font-size: 13px; line-height: 1.6; color: rgba(var(--color-foreground), 0.75);">
+                <p style="margin: 0 0 10px 0;"><strong>Email:</strong> <a href="mailto:support@snapzy.co" style="color: inherit; text-decoration: underline;">support@snapzy.co</a></p>
+                <p style="margin: 0 0 10px 0;"><strong>Working Hours:</strong> Mon - Fri, 9:00 AM - 6:00 PM EST</p>
+                <p style="margin: 0;"><strong>Fulfillment Center:</strong> Hanoi, Vietnam</p>
+              </div>
+            </div>
+          </div>
         {%- endif -%}
 
         <div
@@ -306,7 +349,7 @@
         <small class="copyright__content"
           >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
         </small>
-        <small class="copyright__content">{{ powered_by_link }}</small>
+
         {%- if section.settings.show_policy -%}
           <ul class="policies list-unstyled">
             {%- for policy in shop.policies -%}
