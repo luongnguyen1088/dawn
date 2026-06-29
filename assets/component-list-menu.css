@@ -28,3 +28,29 @@
   width: 10rem;
   padding: 0.5rem;
 }
+
+/* Highlight custom/product menu items with a New badge */
+.header__menu-item--highlight,
+.menu-drawer__menu-item--highlight {
+  color: #ff3366 !important; /* Streetwear pink/red accent */
+  font-weight: 700 !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.header__menu-item--highlight::after,
+.menu-drawer__menu-item--highlight::after {
+  content: "NEW" !important;
+  font-size: 8px !important;
+  background-color: #ff3366 !important;
+  color: #fff !important;
+  padding: 1px 4px !important;
+  border-radius: 3px !important;
+  margin-left: 6px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
