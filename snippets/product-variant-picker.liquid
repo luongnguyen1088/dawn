@@ -245,6 +245,25 @@
   outline-offset: 2px !important;
 }
 
+/* Sold Out Swatches (Opacity 40% & Diagonal Slash) */
+.swatch-input__input.visually-disabled + .swatch-input__label {
+  opacity: 0.4 !important;
+  position: relative !important;
+  pointer-events: none !important;
+}
+
+.swatch-input__input.visually-disabled + .swatch-input__label::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(to top right, transparent calc(50% - 1px), #000 50%, transparent calc(50% + 1px)) !important;
+  pointer-events: none !important;
+  border-radius: 50% !important;
+}
+
 /* Size Pills styling and Sold Out states */
 .product-form__input--pill {
   display: flex !important;

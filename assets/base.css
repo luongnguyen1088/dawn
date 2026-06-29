@@ -3728,6 +3728,20 @@ details-disclosure > details {
   color: rgba(var(--color-foreground), 0.75);
 }
 
+/* Custom solid CTA button */
+.product-form__buttons .product-form__submit.button--secondary {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease-in-out !important;
+}
+.product-form__buttons .product-form__submit.button--secondary:hover {
+  background-color: #333 !important;
+  border-color: #333 !important;
+  opacity: 0.9 !important;
+}
+
 /* Custom Cart Drawer Upsell */
 .cart-drawer__upsell-container {
   display: flex;
