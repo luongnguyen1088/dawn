@@ -2400,7 +2400,7 @@ input[type='checkbox'] {
 
   .header--middle-left {
     grid-template-areas: 'heading navigation icons';
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto 1fr auto;
     column-gap: 2rem;
   }
 
@@ -2799,6 +2799,13 @@ details[open] > .header__submenu {
 
   .header--middle-left .header__inline-menu {
     margin-left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .header--middle-left .header__inline-menu > .list-menu--inline {
+    justify-content: center;
   }
 }
 
@@ -4926,4 +4933,51 @@ details-disclosure > details {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Custom CRO & Policy Highlights */
+.footer__copyright .policies a {
+  font-weight: 700 !important;
+  color: rgb(var(--color-foreground)) !important;
+  text-decoration: underline !important;
+  transition: opacity 0.2s ease !important;
+}
+
+.footer__copyright .policies a:hover {
+  opacity: 0.8 !important;
+}
+
+/* Floating Chat Support FAB */
+.floating-chat-button {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 9999 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-decoration: none !important;
+}
+
+.floating-chat-button:hover {
+  background-color: #333333 !important;
+  transform: scale(1.08) translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+}
+
+@media screen and (max-width: 749px) {
+  .floating-chat-button {
+    bottom: 16px !important;
+    right: 16px !important;
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
 

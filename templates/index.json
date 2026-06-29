@@ -180,12 +180,110 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "how_it_works": {
+      "type": "multicolumn",
+      "blocks": {
+        "step_1": {
+          "type": "column",
+          "settings": {
+            "title": "1. Choose Your Style",
+            "text": "<p>Select from our premium catalog of oversized tees, hoodies, and accessories in your favorite fit and color.</p>"
+          }
+        },
+        "step_2": {
+          "type": "column",
+          "settings": {
+            "title": "2. Personalize Online",
+            "text": "<p>Upload your designs, add custom text, or drop graphic elements. Preview your piece in real-time before checkout.</p>"
+          }
+        },
+        "step_3": {
+          "type": "column",
+          "settings": {
+            "title": "3. We Print & Ship",
+            "text": "<p>We print your custom streetwear order in 1-2 days using advanced PET technology, then ship it straight to your door.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "title": "How It Works",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shop_categories": {
+      "type": "multicolumn",
+      "blocks": {
+        "cat_1": {
+          "type": "column",
+          "settings": {
+            "title": "Custom T-Shirts",
+            "text": "<p>Shop custom heavy cotton tees printed with high definition technology.</p>",
+            "link_label": "Shop Tees",
+            "link": "shopify://collections/all"
+          }
+        },
+        "cat_2": {
+          "type": "column",
+          "settings": {
+            "title": "Oversized Hoodies",
+            "text": "<p>Stay cozy and stylish with our heavy-blend fleece hoodies.</p>",
+            "link_label": "Shop Hoodies",
+            "link": "shopify://collections/all"
+          }
+        },
+        "cat_3": {
+          "type": "column",
+          "settings": {
+            "title": "Best Sellers",
+            "text": "<p>Check out our trending customized streetwear collections.</p>",
+            "link_label": "Shop Trends",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3"
+      ],
+      "settings": {
+        "title": "Shop By Category",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "image_banner",
     "trust_badges_row",
+    "how_it_works",
     "featured_collection",
+    "shop_categories",
     "testimonials_grid"
   ]
 }

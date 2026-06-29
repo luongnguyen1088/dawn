@@ -191,9 +191,22 @@
           {%- if block.settings.image != blank -%}
             <img class="testimonial-avatar" src="{{ block.settings.image | image_url: width: 88, height: 88 }}" alt="{{ block.settings.author | escape }}" width="44" height="44" loading="lazy">
           {%- else -%}
-            <div class="testimonial-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: bold; color: rgb(var(--color-background)); background: var(--gradient-base-accent-1); font-size: 1.4rem;">
-              {{ block.settings.author | slice: 0 | upcase }}
-            </div>
+            {%- assign avatar_url = "" -%}
+            {%- if block.settings.author contains "Sarah" -%}
+              {%- assign avatar_url = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" -%}
+            {%- elsif block.settings.author contains "David" -%}
+              {%- assign avatar_url = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" -%}
+            {%- elsif block.settings.author contains "Emily" -%}
+              {%- assign avatar_url = "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" -%}
+            {%- endif -%}
+            
+            {%- if avatar_url != "" -%}
+              <img class="testimonial-avatar" src="{{ avatar_url }}" alt="{{ block.settings.author | escape }}" width="44" height="44" loading="lazy" style="border-radius: 50%; object-fit: cover;">
+            {%- else -%}
+              <div class="testimonial-avatar" style="display: flex; align-items: center; justify-content: center; font-weight: bold; color: rgb(var(--color-background)); background: var(--gradient-base-accent-1); font-size: 1.4rem;">
+                {{ block.settings.author | slice: 0 | upcase }}
+              </div>
+            {%- endif -%}
           {%- endif -%}
 
           <div class="testimonial-author-details">
