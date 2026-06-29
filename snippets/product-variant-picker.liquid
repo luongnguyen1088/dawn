@@ -56,7 +56,7 @@
           <legend class="form__label">
             {{ option.name }}:
             <span data-selected-value>
-              {{- option.selected_value -}}
+              {{- option.selected_value | split: '(' | first | strip -}}
             </span>
           </legend>
           <div class="color-swatches-mobile-wrapper">
@@ -144,47 +144,47 @@
           <thead>
             <tr>
               <th>Size</th>
-              <th>Chest Width (in)</th>
-              <th>Body Length (in)</th>
-              <th>Sleeve Length (in)</th>
-              <th>Recommended Height</th>
+              <th>Chest (in/cm)</th>
+              <th>Length (in/cm)</th>
+              <th>Height (ft/cm)</th>
+              <th>Weight (lbs/kg)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>S</strong></td>
-              <td>22.5</td>
-              <td>26.5</td>
-              <td>23.5</td>
-              <td>5'4" - 5'7"</td>
+              <td>22.5" / 57cm</td>
+              <td>26.5" / 67cm</td>
+              <td>5'4" - 5'7" / 162-170cm</td>
+              <td>110 - 130 lbs / 50-60kg</td>
             </tr>
             <tr>
               <td><strong>M</strong></td>
-              <td>23.5</td>
-              <td>27.5</td>
-              <td>24.0</td>
-              <td>5'7" - 5'10"</td>
+              <td>23.5" / 60cm</td>
+              <td>27.5" / 70cm</td>
+              <td>5'7" - 5'10" / 170-178cm</td>
+              <td>130 - 155 lbs / 60-70kg</td>
             </tr>
             <tr>
               <td><strong>L</strong></td>
-              <td>24.5</td>
-              <td>28.5</td>
-              <td>24.5</td>
-              <td>5'10" - 6'1"</td>
+              <td>24.5" / 62cm</td>
+              <td>28.5" / 72cm</td>
+              <td>5'10" - 6'1" / 178-185cm</td>
+              <td>155 - 180 lbs / 70-82kg</td>
             </tr>
             <tr>
               <td><strong>XL</strong></td>
-              <td>25.5</td>
-              <td>29.5</td>
-              <td>25.0</td>
-              <td>6'1" - 6'3"</td>
+              <td>25.5" / 65cm</td>
+              <td>29.5" / 75cm</td>
+              <td>6'1" - 6'3" / 185-190cm</td>
+              <td>180 - 205 lbs / 82-93kg</td>
             </tr>
             <tr>
               <td><strong>XXL</strong></td>
-              <td>26.5</td>
-              <td>30.5</td>
-              <td>25.5</td>
-              <td>6'3"+</td>
+              <td>26.5" / 67cm</td>
+              <td>30.5" / 78cm</td>
+              <td>6'3"+ / 190+cm</td>
+              <td>205 lbs+ / 93+kg</td>
             </tr>
           </tbody>
         </table>
@@ -381,7 +381,7 @@
   padding: 3rem 2.5rem;
   border-radius: 12px;
   width: 90%;
-  max-width: 450px;
+  max-width: 600px;
   max-height: 90%;
   overflow-y: auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);

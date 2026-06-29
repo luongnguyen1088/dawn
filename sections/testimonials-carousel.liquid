@@ -176,6 +176,17 @@
           <p class="testimonial-text">"{{ block.settings.text | escape }}"</p>
         {%- endif -%}
 
+        {%- if block.settings.review_image != blank -%}
+          <div class="testimonial-review-image-wrapper" style="margin-bottom: 1.5rem; border-radius: 8px; overflow: hidden; max-height: 180px;">
+            <img 
+              src="{{ block.settings.review_image | image_url: width: 450 }}" 
+              alt="Customer photo review" 
+              style="width: 100%; height: 180px; object-fit: cover;"
+              loading="lazy"
+            >
+          </div>
+        {%- endif -%}
+
         <div class="testimonial-author-info">
           {%- if block.settings.image != blank -%}
             <img class="testimonial-avatar" src="{{ block.settings.image | image_url: width: 88, height: 88 }}" alt="{{ block.settings.author | escape }}" width="44" height="44" loading="lazy">
@@ -307,6 +318,11 @@
           "type": "image_picker",
           "id": "image",
           "label": "Author Avatar (Optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Review Photo / Real-life Photo (Optional)"
         }
       ]
     }

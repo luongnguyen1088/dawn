@@ -44,7 +44,7 @@
 
       # Fallback to custom color mappings if no variant image
       if swatch_value == null
-        assign color_name_downcase = value | downcase
+        assign color_name_downcase = value | downcase | split: '(' | first | strip
         assign custom_color = null
         if color_name_downcase contains 'hồng dâu' or color_name_downcase contains 'hong dau'
           assign custom_color = '#ff8fa3'
@@ -162,7 +162,7 @@
       {{ input_dataset }}
     >
     <label for="{{ input_id }}">
-      {{ value -}}
+      {{ value | split: '(' | first | strip -}}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
@@ -181,9 +181,9 @@
       {{ input_dataset }}
     >
       {% if option_disabled -%}
-        {{- 'products.product.value_unavailable' | t: option_value: value -}}
+        {{- 'products.product.value_unavailable' | t: option_value: (value | split: '(' | first | strip) -}}
       {%- else -%}
-        {{- value -}}
+        {{- value | split: '(' | first | strip -}}
       {%- endif %}
     </option>
   {%- endif -%}

@@ -141,14 +141,21 @@
                       {{ form | payment_terms }}
                     {%- endform -%}
                   </div>
-                  <div class="product-reassurance-row">
-                    <span class="reassurance-item">
-                      {{ 'products.product.fast_shipping_info' | t }}
-                    </span>
-                    <span class="reassurance-divider">•</span>
-                    <span class="reassurance-item">
-                      {{ 'products.product.guarantee_info' | t }}
-                    </span>
+                  <div class="product__trust-badges">
+                    <div class="product__trust-badges-list">
+                      <div class="product__trust-badge-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="product__trust-badge-icon" style="color: #2ecc71; width: 2.4rem; height: 2.4rem;"><path d="M2 22c1.25-3.25 3.5-5.5 6-7.5 2.5 2 4.75 4.25 6 7.5M22 2c-1.25 3.25-3.5 5.5-6 7.5-2.5-2-4.75-4.25-6-7.5"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+                        <span class="product__trust-badge-text">100% Organic Cotton</span>
+                      </div>
+                      <div class="product__trust-badge-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="product__trust-badge-icon" style="color: #3498db; width: 2.4rem; height: 2.4rem;"><path d="m12 3-1.912 5.886L4.2 9l4.886 1.912L11 16.8l1.912-5.887L17.8 9l-4.887-1.912zm6 11-1.275 3.924L12.8 19l3.925 1.275L18 24.2l1.275-3.925L23.2 19l-3.925-1.275z"/></svg>
+                        <span class="product__trust-badge-text">Premium PET Print</span>
+                      </div>
+                      <div class="product__trust-badge-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="product__trust-badge-icon" style="color: #e67e22; width: 2.4rem; height: 2.4rem;"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        <span class="product__trust-badge-text">Free US Shipping over $50</span>
+                      </div>
+                    </div>
                   </div>
                 {%- when 'inventory' -%}
                   <p
@@ -572,14 +579,6 @@
                     section_id: section.id,
                     show_pickup_availability: true
                   -%}
-                  <div class="product-reassurance-row product-reassurance-row--buy-buttons" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 8px;">
-                    <div class="reassurance-item" style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4b5563;">
-                      <span>{{ 'products.product.fast_shipping_info' | t }}</span>
-                    </div>
-                    <div class="reassurance-item" style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4b5563;">
-                      <span>{{ 'products.product.guarantee_info' | t }}</span>
-                    </div>
-                  </div>
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
