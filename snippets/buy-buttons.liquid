@@ -148,4 +148,114 @@
 
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+
+  {%- if product != blank -%}
+    <div class="sticky-cart-mobile" id="StickyCartMobile-{{ section_id }}">
+      <div class="sticky-cart-mobile__info">
+        {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+        {%- if featured_media != blank -%}
+          <img src="{{ featured_media | image_url: width: 88, height: 88 }}" alt="{{ product.title | escape }}" class="sticky-cart-mobile__thumb" width="44" height="44" loading="lazy">
+        {%- endif -%}
+        <div class="sticky-cart-mobile__details">
+          <span class="sticky-cart-mobile__title">{{ product.title }}</span>
+          <span class="sticky-cart-mobile__price">
+            {{ product.selected_or_first_available_variant.price | money }}
+          </span>
+        </div>
+      </div>
+      <button type="button" class="sticky-cart-mobile__button" {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout or product.selected_or_first_available_variant == null %}disabled{% endif %}>
+        <span>
+          {%- if product.selected_or_first_available_variant == null -%}
+            {{ 'products.product.unavailable' | t }}
+          {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- else -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- endif -%}
+        </span>
+      </button>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const sectionId = '{{ section_id }}';
+        const stickyCart = document.getElementById('StickyCartMobile-' + sectionId);
+        if (!stickyCart) return;
+
+        const stickyButton = stickyCart.querySelector('.sticky-cart-mobile__button');
+
+        function updateStickyState() {
+          const mainSubmitButton = document.getElementById('ProductSubmitButton-' + sectionId);
+          if (!mainSubmitButton || !stickyButton) return;
+
+          // Sync disable state
+          stickyButton.disabled = mainSubmitButton.disabled;
+          
+          // Sync text
+          const mainText = mainSubmitButton.querySelector('span');
+          const stickyText = stickyButton.querySelector('span');
+          if (mainText && stickyText) {
+            stickyText.textContent = mainText.textContent.trim();
+          }
+        }
+
+        function initObserver() {
+          const mainSubmitButton = document.getElementById('ProductSubmitButton-' + sectionId);
+          if (!mainSubmitButton) return;
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                stickyCart.classList.remove('visible');
+              } else {
+                if (window.innerWidth < 750) {
+                  stickyCart.classList.add('visible');
+                }
+              }
+            });
+          }, { threshold: 0 });
+
+          observer.observe(mainSubmitButton);
+        }
+
+        // Initial setup
+        initObserver();
+        updateStickyState();
+
+        // Trigger main click
+        stickyButton.addEventListener('click', function() {
+          const mainSubmitButton = document.getElementById('ProductSubmitButton-' + sectionId);
+          if (mainSubmitButton) {
+            mainSubmitButton.click();
+          }
+        });
+
+        // Listen to variant changes
+        if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+          subscribe(PUB_SUB_EVENTS.variantChange, function(event) {
+            if (event.data.sectionId !== sectionId) return;
+
+            const variant = event.data.variant;
+            if (!variant) return;
+
+            // Update image
+            const img = stickyCart.querySelector('.sticky-cart-mobile__thumb');
+            if (img && variant.featured_image) {
+              img.src = variant.featured_image.src;
+            }
+
+            // Update price
+            const priceVal = stickyCart.querySelector('.sticky-cart-mobile__price');
+            const priceElement = document.querySelector('#price-' + sectionId + ' .price-item--sale') || document.querySelector('#price-' + sectionId + ' .price-item--regular');
+            if (priceVal && priceElement) {
+              priceVal.textContent = priceElement.textContent.trim();
+            }
+
+            // Wait a small tick to let Dawn update the main submit button attributes
+            setTimeout(updateStickyState, 50);
+          });
+        }
+      });
+    </script>
+  {%- endif -%}
 </div>

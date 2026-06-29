@@ -150,3 +150,15 @@ variant-selects {
   }
 }
 /* End custom styles for Swatch display type */
+
+@media screen and (max-width: 749px) {
+  .product-form__input--pill input[type='radio'] + label {
+    padding: 1.2rem 2.2rem !important;
+    min-height: 4.4rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0.8rem 0.8rem 0.4rem 0 !important;
+  }
+}
+
