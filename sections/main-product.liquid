@@ -143,13 +143,11 @@
                   </div>
                   <div class="product-reassurance-row">
                     <span class="reassurance-item">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                      Free shipping on orders over $50
+                      {{ 'products.product.fast_shipping_info' | t }}
                     </span>
                     <span class="reassurance-divider">•</span>
                     <span class="reassurance-item">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 4px;"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
-                      7-day hassle-free returns
+                      {{ 'products.product.guarantee_info' | t }}
                     </span>
                   </div>
                 {%- when 'inventory' -%}
@@ -573,6 +571,14 @@
                     section_id: section.id,
                     show_pickup_availability: true
                   -%}
+                  <div class="product-reassurance-row product-reassurance-row--buy-buttons" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 8px;">
+                    <div class="reassurance-item" style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4b5563;">
+                      <span>{{ 'products.product.fast_shipping_info' | t }}</span>
+                    </div>
+                    <div class="reassurance-item" style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4b5563;">
+                      <span>{{ 'products.product.guarantee_info' | t }}</span>
+                    </div>
+                  </div>
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">

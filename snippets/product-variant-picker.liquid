@@ -78,9 +78,9 @@
             {%- if is_size -%}
               <button type="button" class="sizing-chart__button" aria-haspopup="dialog" onclick="openSizeGuideModal('{{ section.id }}')">
                 <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px;">
-                  <path d="M120-120v-170h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v170H120Zm0-290v-430h720v430H120Zm60-60h600v-310H180v310Zm0 0v-310 310Z"/>
+                  <path d="M120-120v-170h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v70h80v-70h60v170H120Zm0-290v-430h720v430H120Zm60-60h600v-310H180v310Zm0 0v-310 310Z"/>
                 </svg>
-                Size Guide
+                {{ 'products.product.size_chart' | t }}
               </button>
             {%- endif -%}
           </legend>
@@ -136,7 +136,7 @@
     <div class="size-guide-modal__overlay" onclick="closeSizeGuideModal('{{ section.id }}')"></div>
     <div class="size-guide-modal__content" role="dialog" aria-labelledby="modal-title-{{ section.id }}">
       <button type="button" class="size-guide-modal__close" onclick="closeSizeGuideModal('{{ section.id }}')" aria-label="Close">&times;</button>
-      <h2 class="size-guide-modal__title" id="modal-title-{{ section.id }}">KÄLLA Oversized Sizing Guide</h2>
+      <h2 class="size-guide-modal__title" id="modal-title-{{ section.id }}">{{ shop.name }} Sizing Guide</h2>
       <p class="size-guide-modal__subtitle">Our items feature an intentional boxy, oversized fit. If you prefer a regular fit, we recommend sizing down.</p>
       
       <div class="size-guide-modal__table-wrapper">
@@ -172,15 +172,15 @@
               <td>24.5</td>
               <td>5'10" - 6'1"</td>
             </tr>
-            <tr class="muted-row">
-              <td><strong>XL (OOS)</strong></td>
+            <tr>
+              <td><strong>XL</strong></td>
               <td>25.5</td>
               <td>29.5</td>
               <td>25.0</td>
               <td>6'1" - 6'3"</td>
             </tr>
-            <tr class="muted-row">
-              <td><strong>XXL (OOS)</strong></td>
+            <tr>
+              <td><strong>XXL</strong></td>
               <td>26.5</td>
               <td>30.5</td>
               <td>25.5</td>

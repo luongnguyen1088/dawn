@@ -179,7 +179,10 @@
       "taxes_included": "Taxes included.",
       "duties_included": "Duties included.",
       "duties_and_taxes_included": "Duties and taxes included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "size_chart": "Size Chart",
+      "fast_shipping_info": "✈️ Fast US Shipping (3-5 business days)",
+      "guarantee_info": "🛡️ 30-Day Money-Back Guarantee"
     },
     "modal": {
       "label": "Media gallery"
