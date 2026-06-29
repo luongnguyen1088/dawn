@@ -23,6 +23,10 @@
           "type": "title",
           "settings": {}
         },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
         "price": {
           "type": "price",
           "settings": {}
@@ -59,6 +63,7 @@
       "block_order": [
         "vendor",
         "title",
+        "rating",
         "price",
         "variant_picker",
         "quantity_selector",
@@ -122,6 +127,43 @@
     },
     "customer-reviews": {
       "type": "testimonials-carousel",
+      "blocks": {
+        "review-1": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sarah M.",
+            "location": "Dallas, TX",
+            "text": "I bought this personalized shirt as a gift for my husband's birthday. The print quality is top-notch and the fabric is extremely soft. Excellent customer service!",
+            "rating": "5",
+            "verified": true
+          }
+        },
+        "review-2": {
+          "type": "testimonial",
+          "settings": {
+            "author": "David K.",
+            "location": "Chicago, IL",
+            "text": "The custom upload was super easy to use. The photo preview let me see exactly how it would look, and the final print came out perfectly sharp. Shipping was fast!",
+            "rating": "5",
+            "verified": true
+          }
+        },
+        "review-3": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Emily R.",
+            "location": "Orlando, FL",
+            "text": "Best gift ever! My mom literally cried tears of joy when she saw the custom shirt. Ordering was quick and the packaging was lovely. Highly recommend Snapzy!",
+            "rating": "5",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3"
+      ],
       "settings": {
         "title": "What Our Customers Say",
         "subtitle": "Rated 4.9/5 stars by over 10,000+ happy customers in the US.",
