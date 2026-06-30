@@ -591,7 +591,7 @@
                       <h4 style="margin: 0 0 1rem 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgb(var(--color-foreground));">Frequently Bought Together</h4>
                       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
                         <div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(var(--color-foreground), 0.08); background: rgb(var(--color-background));">
-                          <img src="{{ product.featured_media | image_url: width: 120 }}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                          <img src="{{ product.selected_or_first_available_variant.featured_media | default: product.featured_media | image_url: width: 120 }}" class="fbt-current-thumb" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                         </div>
                         <span style="font-size: 18px; font-weight: bold; color: rgba(var(--color-foreground), 0.3);">+</span>
                         <div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(var(--color-foreground), 0.08); background: rgb(var(--color-background));">
@@ -607,42 +607,65 @@
                           </div>
                         </div>
                       </div>
-                      <button type="button" class="button button--full-width button--secondary" onclick="addFBTToCart()" style="font-size: 13px; height: 40px; min-height: 40px; background-color: #000 !important; color: #fff !important; border-color: #000 !important; font-weight: 600;">
+                      <button type="button" class="button button--full-width button--secondary fbt-submit-btn" onclick="addFBTToCart()" style="font-size: 13px; height: 40px; min-height: 40px; background-color: #000 !important; color: #fff !important; border-color: #000 !important; font-weight: 600;">
                         Add Both to Cart
                       </button>
                       <script>
-                        function addFBTToCart() {
-                          const form = document.querySelector('form[action$="/cart/add"]');
-                          const variantId = form ? form.querySelector('input[name="id"]').value : null;
-                          const recommendedVariantId = '{{ fbt_recommended_product.selected_or_first_available_variant.id }}';
-                          
-                          if (variantId && recommendedVariantId) {
-                            let formData = {
-                              'items': [
-                                {
-                                  'id': parseInt(variantId),
-                                  'quantity': 1
-                                },
-                                {
-                                  'id': parseInt(recommendedVariantId),
-                                  'quantity': 1
-                                }
-                              ]
-                            };
-                            fetch(window.Shopify.routes.root + 'cart/add.js', {
-                              method: 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify(formData)
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                              window.location.href = '/cart';
-                            })
-                            .catch((error) => {
-                              console.error('Error:', error);
+                        document.addEventListener('DOMContentLoaded', function() {
+                          const fbtContainer = document.querySelector('.frequently-bought-together');
+                          if (!fbtContainer) return;
+
+                          const currentImg = fbtContainer.querySelector('.fbt-current-thumb');
+
+                          function getCurrentVariantId() {
+                            const variantInput = document.querySelector('.product-form input[name="id"]') || document.querySelector('input.product-variant-id');
+                            return variantInput ? variantInput.value : null;
+                          }
+
+                          if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+                            subscribe(PUB_SUB_EVENTS.variantChange, function(event) {
+                              const variant = event.data.variant;
+                              if (!variant) return;
+
+                              // Update left image if variant has featured image
+                              if (currentImg && variant.featured_image) {
+                                currentImg.src = variant.featured_image.src;
+                              }
                             });
                           }
-                        }
+
+                          window.addFBTToCart = function() {
+                            const variantId = getCurrentVariantId();
+                            const recommendedVariantId = '{{ fbt_recommended_product.selected_or_first_available_variant.id }}';
+                            
+                            if (variantId && recommendedVariantId) {
+                              let formData = {
+                                'items': [
+                                  {
+                                    'id': parseInt(variantId),
+                                    'quantity': 1
+                                  },
+                                  {
+                                    'id': parseInt(recommendedVariantId),
+                                    'quantity': 1
+                                  }
+                                ]
+                              };
+                              fetch(window.Shopify.routes.root + 'cart/add.js', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(formData)
+                              })
+                              .then(response => response.json())
+                              .then(data => {
+                                window.location.href = '/cart';
+                              })
+                              .catch((error) => {
+                                console.error('Error:', error);
+                              });
+                            }
+                          }
+                        });
                       </script>
                     </div>
                   {%- endif -%}
