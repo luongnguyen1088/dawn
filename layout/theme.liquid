@@ -24,11 +24,17 @@
       {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
+    {%- capture seo_description -%}
+      {%- if page_description -%}
+        {{ page_description | escape }}
+      {%- else -%}
+        {{ shop.description | default: shop.name | escape }}
+      {%- endif -%}
+    {%- endcapture -%}
+    <meta name="description" content="{{ seo_description | strip_newlines | strip }}">
 
     {% render 'meta-tags' %}
+    {% render 'seo-breadcrumbs' %}
 
     <script type="module">
       import * as StandardEvents from 'https://cdn.shopify.com/storefront/standard-events.js';
