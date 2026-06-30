@@ -204,52 +204,59 @@
                     {%- endif -%}
                   </p>
                 {%- when 'description' -%}
+                  {%- if product.description != blank -%}
+                    <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }} style="margin-bottom: 2rem; font-size: 14px; line-height: 1.6;">
+                      {{ product.description }}
+                    </div>
+                  {%- endif -%}
                   <div class="product-custom-accordions" {{ block.shopify_attributes }}>
-                    <div class="product-accordion-item">
-                      <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
-                        <span class="accordion-title-row">
-                          <span class="accordion-icon">📐</span>
-                          Product Details
-                        </span>
-                        <span class="accordion-arrow">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                      </button>
-                      <div class="product-accordion-content">
-                        <div class="product-accordion-content-inner">
-                          <ul>
-                            <li><strong>Fabric:</strong> 100% Premium Organic Combed Cotton (Preshrunk)</li>
-                            <li><strong>Weight:</strong> Heavyweight 7.4 oz/yd² (250 GSM) premium jersey fabric</li>
-                            <li><strong>Fit:</strong> Oversized, drop-shoulder relaxed boxy fit</li>
-                            <li><strong>Details:</strong> Thick ribbed crewneck collar, double-needle stitched hem</li>
-                            <li><strong>Print:</strong> Premium graphic print (crack-resistant & soft-feel)</li>
-                            <li><strong>Origin:</strong> Imported</li>
-                          </ul>
+                    {%- if product.description == blank -%}
+                      <div class="product-accordion-item">
+                        <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
+                          <span class="accordion-title-row">
+                            <span class="accordion-icon">📐</span>
+                            Product Details
+                          </span>
+                          <span class="accordion-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                          </span>
+                        </button>
+                        <div class="product-accordion-content">
+                          <div class="product-accordion-content-inner">
+                            <ul>
+                              <li><strong>Fabric:</strong> 100% Premium Organic Combed Cotton (Preshrunk)</li>
+                              <li><strong>Weight:</strong> Heavyweight 7.4 oz/yd² (250 GSM) premium jersey fabric</li>
+                              <li><strong>Fit:</strong> Oversized, drop-shoulder relaxed boxy fit</li>
+                              <li><strong>Details:</strong> Thick ribbed crewneck collar, double-needle stitched hem</li>
+                              <li><strong>Print:</strong> Premium graphic print (crack-resistant & soft-feel)</li>
+                              <li><strong>Origin:</strong> Imported</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="product-accordion-item">
-                      <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
-                        <span class="accordion-title-row">
-                          <span class="accordion-icon">🧼</span>
-                          Care Instructions
-                        </span>
-                        <span class="accordion-arrow">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                      </button>
-                      <div class="product-accordion-content">
-                        <div class="product-accordion-content-inner">
-                          <ul>
-                            <li>Machine wash cold inside out with similar colors.</li>
-                            <li>Use mild detergent only; avoid bleach or fabric softeners.</li>
-                            <li>Hang dry is highly recommended to preserve fit and print longevity.</li>
-                            <li>Do not iron directly on the print graphic; iron inside out on low heat.</li>
-                          </ul>
+                      <div class="product-accordion-item">
+                        <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
+                          <span class="accordion-title-row">
+                            <span class="accordion-icon">🧼</span>
+                            Care Instructions
+                          </span>
+                          <span class="accordion-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+                          </span>
+                        </button>
+                        <div class="product-accordion-content">
+                          <div class="product-accordion-content-inner">
+                            <ul>
+                              <li>Machine wash cold inside out with similar colors.</li>
+                              <li>Use mild detergent only; avoid bleach or fabric softeners.</li>
+                              <li>Hang dry is highly recommended to preserve fit and print longevity.</li>
+                              <li>Do not iron directly on the print graphic; iron inside out on low heat.</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    {%- endif -%}
 
                     <div class="product-accordion-item">
                       <button type="button" class="product-accordion-header" onclick="toggleCustomAccordion(this)">
