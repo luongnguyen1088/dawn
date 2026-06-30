@@ -575,53 +575,77 @@
                     show_pickup_availability: true
                   -%}
 
-                  <!-- Frequently Bought Together Widget (Upsell CRO) -->
-                  <div class="frequently-bought-together" style="margin-top: 2rem; padding: 1.5rem; border: 1px solid rgba(var(--color-foreground), 0.08); border-radius: 8px; background-color: rgba(var(--color-foreground), 0.015);">
-                    <h4 style="margin: 0 0 1rem 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgb(var(--color-foreground));">Frequently Bought Together</h4>
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
-                      <div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(var(--color-foreground), 0.08); background: rgb(var(--color-background));">
-                        <img src="{{ product.featured_media | image_url: width: 120 }}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                  {%- liquid
+                    assign fbt_recommended_product = nil
+                    for prod in collections.all.products
+                      if prod.id != product.id and prod.available
+                        assign fbt_recommended_product = prod
+                        break
+                      endif
+                    endfor
+                  -%}
+
+                  {%- if fbt_recommended_product != blank -%}
+                    <!-- Frequently Bought Together Widget (Upsell CRO) -->
+                    <div class="frequently-bought-together" style="margin-top: 2rem; padding: 1.5rem; border: 1px solid rgba(var(--color-foreground), 0.08); border-radius: 8px; background-color: rgba(var(--color-foreground), 0.015);">
+                      <h4 style="margin: 0 0 1rem 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgb(var(--color-foreground));">Frequently Bought Together</h4>
+                      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
+                        <div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(var(--color-foreground), 0.08); background: rgb(var(--color-background));">
+                          <img src="{{ product.featured_media | image_url: width: 120 }}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                        </div>
+                        <span style="font-size: 18px; font-weight: bold; color: rgba(var(--color-foreground), 0.3);">+</span>
+                        <div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(var(--color-foreground), 0.08); background: rgb(var(--color-background));">
+                          <img src="{{ fbt_recommended_product.featured_media | image_url: width: 120 }}" onerror="this.src='{{ product.featured_media | image_url: width: 120 }}'" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                        </div>
+                        <div style="flex-grow: 1;">
+                          <div style="font-size: 13px; font-weight: 600; color: rgb(var(--color-foreground));">{{ fbt_recommended_product.title }}</div>
+                          <div style="font-size: 12px; color: rgba(var(--color-foreground), 0.75);">
+                            {%- if fbt_recommended_product.selected_or_first_available_variant.compare_at_price > fbt_recommended_product.selected_or_first_available_variant.price -%}
+                              <span style="text-decoration: line-through; margin-right: 4px;">{{ fbt_recommended_product.selected_or_first_available_variant.compare_at_price | money }}</span>
+                            {%- endif -%}
+                            <span style="color: #c0392b; font-weight: 600;">{{ fbt_recommended_product.selected_or_first_available_variant.price | money }}</span>
+                          </div>
+                        </div>
                       </div>
-                      <span style="font-size: 18px; font-weight: bold; color: rgba(var(--color-foreground), 0.3);">+</span>
-                      <div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(var(--color-foreground), 0.08); background: rgb(var(--color-background));">
-                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=120&auto=format&fit=crop&q=80" onerror="this.src='{{ product.featured_media | image_url: width: 120 }}'" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                      </div>
-                      <div style="flex-grow: 1;">
-                        <div style="font-size: 13px; font-weight: 600; color: rgb(var(--color-foreground));">Snapzy Retro Cap</div>
-                        <div style="font-size: 12px; color: rgba(var(--color-foreground), 0.75);"><span style="text-decoration: line-through; margin-right: 4px;">$19.99</span><span style="color: #c0392b; font-weight: 600;">$9.99</span> <span style="font-size: 10px; background-color: #fee2e2; color: #ef4444; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 4px;">SAVE 50%</span></div>
-                      </div>
-                    </div>
-                    <button type="button" class="button button--full-width button--secondary" onclick="addFBTToCart()" style="font-size: 13px; height: 40px; min-height: 40px; background-color: #000 !important; color: #fff !important; border-color: #000 !important; font-weight: 600;">
-                      Add Both to Cart
-                    </button>
-                    <script>
-                      function addFBTToCart() {
-                        const form = document.querySelector('form[action$="/cart/add"]');
-                        const variantId = form ? form.querySelector('input[name="id"]').value : null;
-                        
-                        if (variantId) {
-                          let formData = {
-                            'items': [{
-                              'id': parseInt(variantId),
-                              'quantity': 1
-                            }]
-                          };
-                          fetch(window.Shopify.routes.root + 'cart/add.js', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(formData)
-                          })
-                          .then(response => response.json())
-                          .then(data => {
-                            window.location.href = '/cart';
-                          })
-                          .catch((error) => {
-                            console.error('Error:', error);
-                          });
+                      <button type="button" class="button button--full-width button--secondary" onclick="addFBTToCart()" style="font-size: 13px; height: 40px; min-height: 40px; background-color: #000 !important; color: #fff !important; border-color: #000 !important; font-weight: 600;">
+                        Add Both to Cart
+                      </button>
+                      <script>
+                        function addFBTToCart() {
+                          const form = document.querySelector('form[action$="/cart/add"]');
+                          const variantId = form ? form.querySelector('input[name="id"]').value : null;
+                          const recommendedVariantId = '{{ fbt_recommended_product.selected_or_first_available_variant.id }}';
+                          
+                          if (variantId && recommendedVariantId) {
+                            let formData = {
+                              'items': [
+                                {
+                                  'id': parseInt(variantId),
+                                  'quantity': 1
+                                },
+                                {
+                                  'id': parseInt(recommendedVariantId),
+                                  'quantity': 1
+                                }
+                              ]
+                            };
+                            fetch(window.Shopify.routes.root + 'cart/add.js', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify(formData)
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                              window.location.href = '/cart';
+                            })
+                            .catch((error) => {
+                              console.error('Error:', error);
+                            });
+                          }
                         }
-                      }
-                    </script>
-                  </div>
+                      </script>
+                    </div>
+                  {%- endif -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
